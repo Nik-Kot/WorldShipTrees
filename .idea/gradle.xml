@@ -9,6 +9,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Fabric" />
+            <option value="$PROJECT_DIR$/Forge" />
+            <option value="$PROJECT_DIR$/Quilt" />
           </set>
         </option>
       </GradleProjectSettings>

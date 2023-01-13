@@ -7,9 +7,9 @@ plugins {
 ext {
     mcversion = '1.19.2'
     forgeversion = '1.19.2-43.2.3'
-    modid = 'examplemod'
-    author = 'example'
-    modname = 'Example Mod'
+    modid = 'worldshiptrees'
+    author = 'nikkot'
+    modname = 'Pakratt\'s Worldships'
     versionname = '1.0'
     versioncode = '1'
 }

@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package com.nikkot.worldshiptrees;
 
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;

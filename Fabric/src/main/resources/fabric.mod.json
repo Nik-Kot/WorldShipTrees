@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "examplemod",
+	"id": "worldshiptrees",
 	"version": "${version}",
 	"name": "Example Mod",
 	"description": "This is an example description! Tell everyone what your mod is about!",
@@ -11,19 +11,19 @@
 		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "CC0-1.0",
-	"icon": "assets/examplemod/icon.png",
+	"license": "The Unlicense",
+	"icon": "assets/worldshiptrees/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"com.nikkot.worldshiptrees.WorldShipTrees"
 		],
 		"fabric-datagen": [
-			"com.example.ExampleModDataGenerator"
+			"com.nikkot.worldshiptrees.WorldShipTreesDataGenerator"
 		]
 	},
 	"mixins": [
-		"examplemod.mixins.json"
+		"worldshiptrees.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.14.12",

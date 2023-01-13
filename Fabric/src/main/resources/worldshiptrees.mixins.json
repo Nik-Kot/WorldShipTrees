@@ -1,9 +1,9 @@
 {
 	"required": true,
-	"package": "com.example.mixin",
+	"package": "com.nikkot.worldshiptrees.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"WorldShipMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

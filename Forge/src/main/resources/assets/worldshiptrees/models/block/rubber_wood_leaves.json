@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/leaves",
   "textures": {
-    "all": "worldshiptrees:block/rubber_wood_leaves"
+    "all": "worldshiptrees:block/rubber_wood_leaves_grayscale"
   }
 }

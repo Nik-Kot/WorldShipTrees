@@ -1,6 +1,10 @@
 package com.nikkot.worldshiptrees;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.CrashReport;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.world.level.FoliageColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -60,19 +64,23 @@ public class WorldShipTrees
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            //Minecraft minecraft = Minecraft.getInstance();
+            //minecraft.getBlockColors().register(WorldShipColors.rubber_leaves, WorldShipBlocks.BLOCK_RUBBER_WOOD_LEAVES.get());
+            //minecraft.getItemColors().register(WorldShipColors.rubber_leaves_item, WorldShipItems.ITEM_RUBBER_WOOD_LEAVES.get());
             // Some client setup code
             //LOGGER.info("HELLO FROM CLIENT SETUP");
             //LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
 
         @SubscribeEvent
-        public void registerBlockColors(RegisterColorHandlersEvent.Block event){
-
+        public static void registerBlockColors(RegisterColorHandlersEvent.Block event){
+            //Minecraft.crash(new CrashReport("dfegr", new Throwable("frgtyjhtgr")));
+            event.register(WorldShipColors.rubber_leaves, WorldShipBlocks.BLOCK_RUBBER_WOOD_LEAVES.get());
         }
 
         @SubscribeEvent
-        public void registerItemColors(RegisterColorHandlersEvent.Item event){
-
+        public static void registerItemColors(RegisterColorHandlersEvent.Item event){
+            event.register(WorldShipColors.rubber_leaves_item, WorldShipItems.ITEM_RUBBER_WOOD_LEAVES.get());
         }
     }
 }

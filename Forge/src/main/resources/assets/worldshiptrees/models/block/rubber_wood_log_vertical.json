@@ -1,5 +1,5 @@
 {
-  "parent": "block/cube_column",
+  "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "worldshiptrees:block/rubber_wood_log_top",
     "side": "worldshiptrees:block/rubber_wood_log_side"

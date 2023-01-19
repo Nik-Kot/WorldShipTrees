@@ -2,6 +2,7 @@ package com.nikkot.worldshiptrees;
 
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -62,6 +63,16 @@ public class WorldShipTrees
             // Some client setup code
             //LOGGER.info("HELLO FROM CLIENT SETUP");
             //LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        }
+
+        @SubscribeEvent
+        public void registerBlockColors(RegisterColorHandlersEvent.Block event){
+
+        }
+
+        @SubscribeEvent
+        public void registerItemColors(RegisterColorHandlersEvent.Item event){
+
         }
     }
 }

@@ -1,9 +1,11 @@
 {
   "block.worldshiptrees.rubber_wood_log": "Rubber Wood",
   "block.worldshiptrees.rubber_wood_leaves": "Rubber Leaves",
+  "block.worldshiptrees.rubber_wood_sapling": "Rubber Sapling",
+  "block.worldshiptrees.sacred_rubber_wood_sapling": "Sacred Rubber Sapling",
   "item.worldshiptrees.creative_tab_item": "Pakratt's Worldships",
-  "item.worldshiptrees.rubber_sapling": "Rubber Sapling",
-  "item.worldshiptrees.sacred_rubber_sapling": "Sacred Rubber Sapling",
+  "item.worldshiptrees.rubber_wood_sapling": "Rubber Sapling",
+  "item.worldshiptrees.sacred_rubber_wood_sapling": "Sacred Rubber Sapling",
   "item.worldshiptrees.rubber_wood_log": "Rubber Wood",
   "item.worldshiptrees.rubber_wood_leaves": "Rubber Leaves",
   "itemGroup.worldshiptrees": "Pakratt's Worldships"

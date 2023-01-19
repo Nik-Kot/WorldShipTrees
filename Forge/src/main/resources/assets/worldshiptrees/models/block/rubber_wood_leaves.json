@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "worldshiptrees:block/rubber_wood_leaves"
+  }
+}

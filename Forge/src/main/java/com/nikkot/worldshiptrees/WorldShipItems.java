@@ -25,38 +25,41 @@ public class WorldShipItems {
 
     public static CreativeModeTab CREATIVE_MODE_TAB;
 
-    public static void registerItems (DeferredRegister<Item> itemRegister, IEventBus eventBus) {
+    public static boolean registerItems (DeferredRegister<Item> itemRegister, boolean blocksRegistered, IEventBus eventBus) {
 
-        ITEM_CREATIVE_TAB = itemRegister.register("creative_tab_item", () -> new Item(new Item.Properties()) {
-            @Override
-            public boolean isFoil(@NotNull ItemStack stack) {
-                return true;
-            }
-        });
+        CREATIVE_MODE_TAB = registerCreativeTab(itemRegister);
 
-        CREATIVE_MODE_TAB = registerCreativeTab(ITEM_CREATIVE_TAB);
-
-        ITEM_RUBBER_WOOD_LOG = itemRegister.register("rubber_wood_log", () -> new BlockItem(WorldShipBlocks.BLOCK_RUBBER_WOOD_LOG.get(), new Item.Properties().tab(CREATIVE_MODE_TAB)));
-        ITEM_RUBBER_WOOD_LEAVES = itemRegister.register("rubber_wood_leaves", () -> new BlockItem(WorldShipBlocks.BLOCK_RUBBER_WOOD_LEAVES.get(), new Item.Properties().tab(CREATIVE_MODE_TAB)));
-
-        ITEM_RUBBER_SAPLING = itemRegister.register("rubber_sapling", () -> new Item(new Item.Properties().tab(CREATIVE_MODE_TAB)));
-
-        ITEM_SACRED_RUBBER_SAPLING = itemRegister.register("sacred_rubber_sapling", () -> new Item(new Item.Properties().tab(CREATIVE_MODE_TAB).rarity(RARITY_LEGENDARY)) {
-            @Override
-            public boolean isFoil(@NotNull ItemStack stack) {
-                return true;
-            }
-        });
+        boolean blockItemsRegistered = registerBlockItems(itemRegister, blocksRegistered);
 
         itemRegister.register(eventBus);
+
+        return blockItemsRegistered;
     }
 
-    public static CreativeModeTab registerCreativeTab(RegistryObject<Item> creativeTabItem) {
+    public static boolean registerBlockItems (DeferredRegister<Item> itemRegister, boolean blocksRegistered) {
+        if (blocksRegistered) {
+            ITEM_RUBBER_WOOD_LOG = itemRegister.register("rubber_wood_log", () -> new BlockItem(WorldShipBlocks.BLOCK_RUBBER_WOOD_LOG.get(), new Item.Properties().tab(CREATIVE_MODE_TAB)));
+            ITEM_RUBBER_WOOD_LEAVES = itemRegister.register("rubber_wood_leaves", () -> new BlockItem(WorldShipBlocks.BLOCK_RUBBER_WOOD_LEAVES.get(), new Item.Properties().tab(CREATIVE_MODE_TAB)));
+
+            ITEM_RUBBER_SAPLING = itemRegister.register("rubber_wood_sapling", () -> new BlockItem(WorldShipBlocks.BLOCK_RUBBER_WOOD_SAPLING.get(), new Item.Properties().tab(CREATIVE_MODE_TAB)));
+            ITEM_SACRED_RUBBER_SAPLING = itemRegister.register("sacred_rubber_wood_sapling", () -> new BlockItem(WorldShipBlocks.BLOCK_SACRED_RUBBER_WOOD_SAPLING.get() ,new Item.Properties().tab(CREATIVE_MODE_TAB).rarity(RARITY_LEGENDARY)) {
+                @Override
+                public boolean isFoil(@NotNull ItemStack stack) {
+                    return true;
+                }
+            });
+            return true;
+        }
+        return false;
+    }
+
+    public static CreativeModeTab registerCreativeTab(DeferredRegister<Item> itemRegister) {
+        ITEM_CREATIVE_TAB = itemRegister.register("creative_tab_item", () -> new SimpleFoiledItem(new Item.Properties()));
         return new CreativeModeTab(WorldShipTrees.MODID) {
             @Override
             @NotNull
             public ItemStack makeIcon() {
-                return creativeTabItem.get().getDefaultInstance();
+                return ITEM_CREATIVE_TAB.get().getDefaultInstance();
             }
             /*@Override
             @NotNull

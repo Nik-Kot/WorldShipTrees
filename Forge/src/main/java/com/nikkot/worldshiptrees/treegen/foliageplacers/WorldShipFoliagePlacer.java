@@ -17,7 +17,7 @@ import net.minecraft.world.level.material.Fluids;
 import java.util.function.BiConsumer;
 
 public abstract class WorldShipFoliagePlacer {
-   public static final Codec<WorldShipFoliagePlacer> CODEC = WSRegisters.foliagePlacerRegistry.get().getCodec().dispatch(WorldShipFoliagePlacer::type, WorldShipFoliagePlacerType::codec);
+   public static final Codec<WorldShipFoliagePlacer> CODEC = null;//WSRegisters.foliagePlacerRegistry.get().getCodec().dispatch(WorldShipFoliagePlacer::type, WorldShipFoliagePlacerType::codec);
    protected final IntProvider radius;
    protected final IntProvider offset;
 

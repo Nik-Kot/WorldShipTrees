@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public abstract class WorldShipRootPlacer {
-   public static final Codec<WorldShipRootPlacer> CODEC = WSRegisters.rootPlacerRegistry.get().getCodec().dispatch(WorldShipRootPlacer::type, WorldShipRootPlacerType::codec);
+   public static final Codec<WorldShipRootPlacer> CODEC = null;//WSRegisters.rootPlacerRegistry.get().getCodec().dispatch(WorldShipRootPlacer::type, WorldShipRootPlacerType::codec);
    protected final IntProvider trunkOffsetY;
    protected final BlockStateProvider rootProvider;
    protected final Optional<AboveRootPlacement> aboveRootPlacement;

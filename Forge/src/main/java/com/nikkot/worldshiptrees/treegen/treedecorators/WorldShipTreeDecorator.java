@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 public abstract class WorldShipTreeDecorator {
-   public static final Codec<WorldShipTreeDecorator> CODEC = WSRegisters.treeDecoratorRegistry.get().getCodec().dispatch(WorldShipTreeDecorator::type, WorldShipTreeDecoratorType::codec);
+   public static final Codec<WorldShipTreeDecorator> CODEC = null;//WSRegisters.treeDecoratorRegistry.get().getCodec().dispatch(WorldShipTreeDecorator::type, WorldShipTreeDecoratorType::codec);
 
    protected abstract WorldShipTreeDecoratorType<?> type();
 

@@ -73,11 +73,10 @@ public class WSRegisters {
 
         WSBlocks.registerBlocksSecondary(blockRegister);
         blockRegister.register(eventBus);
+
         //WorldShipFluids.registerFluids(fluidRegister, eventBus);
         WSItems.registerItems(itemRegister);
         itemRegister.register(eventBus);
-
-        //WSFeatures.registerFeatures(featureRegister, eventBus);
 
     }
 

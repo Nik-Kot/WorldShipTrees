@@ -21,7 +21,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public abstract class WorldShipTrunkPlacer {
-   public static final Codec<WorldShipTrunkPlacer> CODEC = WSRegisters.trunkPlacerRegistry.get().getCodec().dispatch(WorldShipTrunkPlacer::type, WorldShipTrunkPlacerType::codec);
+   public static final Codec<WorldShipTrunkPlacer> CODEC = null;//WSRegisters.trunkPlacerRegistry.get().getCodec().dispatch(WorldShipTrunkPlacer::type, WorldShipTrunkPlacerType::codec);
 
    /*public static final Codec<WorldShipTrunkPlacer> CODEC = RecordCodecBuilder.create((p_70261_) -> {
       return trunkPlacerParts(p_70261_).apply(p_70261_, WSTrunkPlacer::new);

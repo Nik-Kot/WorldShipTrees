@@ -1,10 +1,10 @@
 package com.nikkot.worldshiptrees;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.CrashReport;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.world.level.FoliageColor;
+import com.nikkot.worldshiptrees.objects.WSBlocks;
+import com.nikkot.worldshiptrees.objects.WSColors;
+import com.nikkot.worldshiptrees.objects.WSItems;
+import com.nikkot.worldshiptrees.objects.WSRegisters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,7 +36,7 @@ public class WorldShipTrees
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        WorldShipRegisters.registerEverything(modEventBus);
+        WSRegisters.registerEverything(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -51,7 +51,7 @@ public class WorldShipTrees
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
+    public static void onServerStarting(ServerStartingEvent event)
     {
         // Do something when the server starts
         //LOGGER.info("HELLO from server starting");
@@ -65,8 +65,8 @@ public class WorldShipTrees
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             //Minecraft minecraft = Minecraft.getInstance();
-            //minecraft.getBlockColors().register(WorldShipColors.rubber_leaves, WorldShipBlocks.BLOCK_RUBBER_WOOD_LEAVES.get());
-            //minecraft.getItemColors().register(WorldShipColors.rubber_leaves_item, WorldShipItems.ITEM_RUBBER_WOOD_LEAVES.get());
+            //minecraft.getBlockColors().register(WSColors.rubber_leaves, WSBlocks.BLOCK_RUBBER_WOOD_LEAVES.get());
+            //minecraft.getItemColors().register(WSColors.rubber_leaves_item, WSItems.ITEM_RUBBER_WOOD_LEAVES.get());
             // Some client setup code
             //LOGGER.info("HELLO FROM CLIENT SETUP");
             //LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
@@ -75,12 +75,12 @@ public class WorldShipTrees
         @SubscribeEvent
         public static void registerBlockColors(RegisterColorHandlersEvent.Block event){
             //Minecraft.crash(new CrashReport("dfegr", new Throwable("frgtyjhtgr")));
-            event.register(WorldShipColors.rubber_leaves, WorldShipBlocks.BLOCK_RUBBER_WOOD_LEAVES.get());
+            event.register(WSColors.block_rubber_leaves, WSBlocks.BLOCK_RUBBER_WOOD_LEAVES.get());
         }
 
         @SubscribeEvent
         public static void registerItemColors(RegisterColorHandlersEvent.Item event){
-            event.register(WorldShipColors.rubber_leaves_item, WorldShipItems.ITEM_RUBBER_WOOD_LEAVES.get());
+            event.register(WSColors.item_rubber_leaves, WSItems.ITEM_RUBBER_WOOD_LEAVES.get());
         }
     }
 }

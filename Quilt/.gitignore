@@ -32,3 +32,7 @@ workspace/
 
 # macOS
 *.DS_Store
+
+minecraft-assets-1.19.2/
+minecraft-assets-1.19.3/
+minecraft-assets-1.19.4/

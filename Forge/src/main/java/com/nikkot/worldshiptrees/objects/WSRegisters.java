@@ -75,6 +75,8 @@ public class WSRegisters {
         blockRegister.register(eventBus);
 
         //WorldShipFluids.registerFluids(fluidRegister, eventBus);
+
+
         WSItems.registerItems(itemRegister);
         itemRegister.register(eventBus);
 

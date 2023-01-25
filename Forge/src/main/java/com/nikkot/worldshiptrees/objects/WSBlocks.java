@@ -62,7 +62,7 @@ public class WSBlocks {
         }
     });
 
-    public static final RegistryObject<LiquidBlock> BLOCK_LIQUID_TREE_SAP = WSRegisters.blockRegister.register("tree_sap", () -> new LiquidBlock(WSFluids.FLUID_TREE_SAP_SOURCE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F).noLootTable()));
+    public static final RegistryObject<LiquidBlock> BLOCK_LIQUID_TREE_SAP = WSRegisters.blockRegister.register("tree_sap", () -> new LiquidBlock(WSFluids.FLUID_TREE_SAP_SOURCE, BlockBehaviour.Properties.of(Material.WATER, MaterialColor.WOOD).noCollission().strength(100.0f).noLootTable()));
 
 
     public static final List<RegistryObject<? extends Block>> blocks = new ArrayList<>();

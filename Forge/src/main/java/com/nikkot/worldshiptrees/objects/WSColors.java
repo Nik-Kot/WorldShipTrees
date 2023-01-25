@@ -1,5 +1,6 @@
 package com.nikkot.worldshiptrees.objects;
 
+import com.nikkot.worldshiptrees.WSBucketItem;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.core.BlockPos;
@@ -7,6 +8,7 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MaterialColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,4 +30,14 @@ public class WSColors {
             return 0xFF00FF00;
         }
     };
+
+    public static final ItemColor item_bucket = new ItemColor() {
+        @Override
+        public int getColor(@NotNull ItemStack itemStack, int tintIndex) {
+            WSBucketItem wsBucketItem = (WSBucketItem) itemStack.getItem();
+            return wsBucketItem.getColor(tintIndex);
+        }
+    };
+
+    public static final int tree_sap = MaterialColor.WOOD.col + 0xFF000000;
 }

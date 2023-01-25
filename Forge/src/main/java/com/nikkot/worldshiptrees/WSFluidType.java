@@ -4,6 +4,7 @@ import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -15,45 +16,50 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class WSFluidType extends FluidType {
-    private final ResourceLocation stillTexture;
-    private final ResourceLocation flowingTexture;
-    private final ResourceLocation overlayTexture;
-    private final int tintColor;
-    private final Vector3f fogColor;
+    private ResourceLocation stillTexture = null;
+    private ResourceLocation flowingTexture = null;
+    private ResourceLocation overlayTexture = null;
+    private ResourceLocation renderOverlayTexture = null;
+    private int tintColor = 0xFFFFFFFF;
+    private Vector3f fogColor = null;
 
-    public WSFluidType(final ResourceLocation stillTexture, final ResourceLocation flowingTexture, final ResourceLocation overlayTexture,
-                         final int tintColor, final Vector3f fogColor, final Properties properties) {
+    public WSFluidType(final Properties properties) {
         super(properties);
+    }
+
+    public WSFluidType stillTexture(ResourceLocation stillTexture) {
         this.stillTexture = stillTexture;
+        return this;
+    }
+
+    public WSFluidType flowingTexture(ResourceLocation flowingTexture) {
         this.flowingTexture = flowingTexture;
+        return this;
+    }
+
+    public WSFluidType overlayTexture(ResourceLocation overlayTexture) {
         this.overlayTexture = overlayTexture;
+        return this;
+    }
+
+    public WSFluidType renderOverlayTexture(ResourceLocation renderOverlayTexture) {
+        this.renderOverlayTexture = renderOverlayTexture;
+        return this;
+    }
+
+    public WSFluidType tintColor(int tintColor) {
         this.tintColor = tintColor;
+        return this;
+    }
+
+    public WSFluidType fogColor(Vector3f fogColor) {
         this.fogColor = fogColor;
-    }
-
-    public ResourceLocation getStillTexture() {
-        return stillTexture;
-    }
-
-    public ResourceLocation getFlowingTexture() {
-        return flowingTexture;
-    }
-
-    public int getTintColor() {
-        return tintColor;
-    }
-
-    public ResourceLocation getOverlayTexture() {
-        return overlayTexture;
-    }
-
-    public Vector3f getFogColor() {
-        return fogColor;
+        return this;
     }
 
     @Override
     public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-        /*consumer.accept(new IClientFluidTypeExtensions() {
+        consumer.accept(new IClientFluidTypeExtensions() {
             @Override
             public ResourceLocation getStillTexture() {
                 return stillTexture;
@@ -71,24 +77,32 @@ public class WSFluidType extends FluidType {
             }
 
             @Override
+            @Nullable
+            public ResourceLocation getRenderOverlayTexture (Minecraft mc) {
+                return renderOverlayTexture;
+            }
+
+            @Override
             public int getTintColor() {
                 return tintColor;
             }
 
             @Override
             @NotNull
-            public Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level,
-                                                    int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
-                return fogColor;
+            public Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
+                if (fogColor != null) {
+                    return fogColor;
+                } else {
+                    return fluidFogColor;
+                }
             }
 
             @Override
-            public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick,
-                                        float nearDistance, float farDistance, FogShape shape) {
+            public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
                 RenderSystem.setShaderFogStart(1f);
-                RenderSystem.setShaderFogEnd(6f); // distance when the fog starts
+                RenderSystem.setShaderFogEnd(8f);
             }
-        });*/
+        });
 
         super.initializeClient(consumer);
     }

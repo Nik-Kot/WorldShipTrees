@@ -1,10 +1,9 @@
 package com.nikkot.worldshiptrees;
 
 import com.mojang.logging.LogUtils;
-import com.nikkot.worldshiptrees.objects.WSBlocks;
-import com.nikkot.worldshiptrees.objects.WSColors;
-import com.nikkot.worldshiptrees.objects.WSItems;
-import com.nikkot.worldshiptrees.objects.WSRegisters;
+import com.nikkot.worldshiptrees.objects.*;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -70,6 +69,8 @@ public class WorldShipTrees
             // Some client setup code
             //LOGGER.info("HELLO FROM CLIENT SETUP");
             //LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            ItemBlockRenderTypes.setRenderLayer(WSFluids.FLUID_TREE_SAP_SOURCE.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(WSFluids.FLUID_TREE_SAP_FLOWING.get(), RenderType.translucent());
         }
 
         @SubscribeEvent
@@ -81,6 +82,7 @@ public class WorldShipTrees
         @SubscribeEvent
         public static void registerItemColors(RegisterColorHandlersEvent.Item event){
             event.register(WSColors.item_rubber_leaves, WSItems.ITEM_RUBBER_WOOD_LEAVES.get());
+            event.register(WSColors.item_bucket, WSItems.ITEM_BUCKET_TREE_SAP.get());
         }
     }
 }

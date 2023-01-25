@@ -1,7 +1,9 @@
 package com.nikkot.worldshiptrees.objects;
 
+import com.nikkot.worldshiptrees.WSBucketItem;
 import com.nikkot.worldshiptrees.WorldShipTrees;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +44,7 @@ public class WSItems {
         }
     });
 
-    public static final RegistryObject<BucketItem> ITEM_BUCKET_TREE_SAP = WSRegisters.itemRegister.register("tree_sap_bucket", () -> new BucketItem(WSFluids.FLUID_TREE_SAP_SOURCE, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(CREATIVE_MODE_TAB)));
+    public static final RegistryObject<WSBucketItem> ITEM_BUCKET_TREE_SAP = WSRegisters.itemRegister.register("tree_sap_bucket", () -> new WSBucketItem(WSFluids.FLUID_TREE_SAP_SOURCE, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(CREATIVE_MODE_TAB), WSColors.tree_sap));
 
 
     public static final List<CreativeModeTab> tabs = new ArrayList<>();

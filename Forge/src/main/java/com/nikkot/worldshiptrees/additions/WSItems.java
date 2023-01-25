@@ -14,7 +14,10 @@ public class WSItems {
 
 
 
-    public static final RegistryObject<SimpleFoiledItem> ITEM_CREATIVE_TAB = WSRegisters.itemRegister.register("creative_tab_item", () -> new SimpleFoiledItem(new Item.Properties()));
+    public static final RegistryObject<SimpleFoiledItem> ITEM_CREATIVE_TAB = WSRegisters
+            .itemRegister.register("creative_tab_item", () ->
+                    new SimpleFoiledItem (
+                            new Item.Properties()));
     public static final CreativeModeTab CREATIVE_MODE_TAB = new CreativeModeTab(WorldShipTrees.MODID) {
         @Override
         @NotNull
@@ -30,20 +33,51 @@ public class WSItems {
         }*/
     };
 
-    public static final Rarity RARITY_LEGENDARY = Rarity.create("legendary", (style) -> style.withColor(WSColors.orange));
-    public static final Rarity RARITY_MYTHIC = Rarity.create("mythic", (style) -> style.withColor(WSColors.red));
+    public static final Rarity RARITY_LEGENDARY = Rarity.create("legendary",
+            (style) -> style.withColor(WSColors.orange));
+    public static final Rarity RARITY_MYTHIC = Rarity.create("mythic",
+            (style) -> style.withColor(WSColors.red));
 
-    public static final RegistryObject<BlockItem> ITEM_RUBBER_WOOD_LOG = WSRegisters.itemRegister.register("rubber_wood_log", () -> new BlockItem(WSBlocks.BLOCK_RUBBER_WOOD_LOG.get(), new Item.Properties().tab(CREATIVE_MODE_TAB)));
-    public static final RegistryObject<BlockItem> ITEM_RUBBER_WOOD_LEAVES = WSRegisters.itemRegister.register("rubber_wood_leaves", () -> new BlockItem(WSBlocks.BLOCK_RUBBER_WOOD_LEAVES.get(), new Item.Properties().tab(CREATIVE_MODE_TAB)));
-    public static final RegistryObject<BlockItem> ITEM_RUBBER_WOOD_SAPLING = WSRegisters.itemRegister.register("rubber_wood_sapling", () -> new BlockItem(WSBlocks.BLOCK_RUBBER_WOOD_SAPLING.get(), new Item.Properties().tab(CREATIVE_MODE_TAB)));
-    public static final RegistryObject<BlockItem> ITEM_SACRED_RUBBER_WOOD_SAPLING = WSRegisters.itemRegister.register("sacred_rubber_wood_sapling", () -> new BlockItem(WSBlocks.BLOCK_SACRED_RUBBER_WOOD_SAPLING.get(), new Item.Properties().tab(CREATIVE_MODE_TAB).rarity(RARITY_LEGENDARY)) {
-        @Override
-        public boolean isFoil(@NotNull ItemStack stack) {
-            return true;
-        }
-    });
+    public static final RegistryObject<BlockItem> ITEM_RUBBER_WOOD_LOG = WSRegisters
+            .itemRegister.register("rubber_wood_log", () ->
+                    new BlockItem (
+                            WSBlocks.BLOCK_RUBBER_WOOD_LOG.get(),
+                            new Item.Properties()
+                                    .tab(CREATIVE_MODE_TAB)));
+    public static final RegistryObject<BlockItem> ITEM_RUBBER_WOOD_LEAVES = WSRegisters
+            .itemRegister.register("rubber_wood_leaves", () ->
+                    new BlockItem (
+                            WSBlocks.BLOCK_RUBBER_WOOD_LEAVES.get(),
+                            new Item.Properties()
+                                    .tab(CREATIVE_MODE_TAB)));
+    public static final RegistryObject<BlockItem> ITEM_RUBBER_WOOD_SAPLING = WSRegisters
+            .itemRegister.register("rubber_wood_sapling", () ->
+                    new BlockItem (
+                            WSBlocks.BLOCK_RUBBER_WOOD_SAPLING.get(),
+                            new Item.Properties()
+                                    .tab(CREATIVE_MODE_TAB)));
+    public static final RegistryObject<BlockItem> ITEM_SACRED_RUBBER_WOOD_SAPLING = WSRegisters
+            .itemRegister.register("sacred_rubber_wood_sapling", () ->
+                    new BlockItem (
+                            WSBlocks.BLOCK_SACRED_RUBBER_WOOD_SAPLING.get(),
+                            new Item.Properties()
+                                    .tab(CREATIVE_MODE_TAB)
+                                    .rarity(RARITY_LEGENDARY)) {
+                        @Override
+                        public boolean isFoil(@NotNull ItemStack stack) {
+                            return true;
+                        }
+                    });
 
-    public static final RegistryObject<WSBucketItem> ITEM_BUCKET_TREE_SAP = WSRegisters.itemRegister.register("tree_sap_bucket", () -> new WSBucketItem(WSFluids.FLUID_TREE_SAP_SOURCE, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(CREATIVE_MODE_TAB), WSColors.tree_sap));
+    public static final RegistryObject<WSBucketItem> ITEM_BUCKET_TREE_SAP = WSRegisters
+            .itemRegister.register("tree_sap_bucket", () ->
+                    new WSBucketItem(
+                            WSFluids.FLUID_TREE_SAP_SOURCE,
+                            new Item.Properties()
+                                    .craftRemainder(Items.BUCKET)
+                                    .stacksTo(1)
+                                    .tab(CREATIVE_MODE_TAB),
+                            WSColors.tree_sap));
 
 
     public static final List<CreativeModeTab> tabs = new ArrayList<>();

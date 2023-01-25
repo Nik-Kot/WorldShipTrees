@@ -20,49 +20,99 @@ import java.util.List;
 
 public class WSBlocks {
 
-    public static final RegistryObject<RotatedPillarBlock> BLOCK_RUBBER_WOOD_LOG = WSRegisters.blockRegister.register("rubber_wood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD, (blockState) -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL).sound(SoundType.WOOD).strength(2.0F)) {
-        @Override
-        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 5;
-        }
-        @Override
-        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 5;
-        }
-    });
-    public static final RegistryObject<LeavesBlock> BLOCK_RUBBER_WOOD_LEAVES = WSRegisters.blockRegister.register("rubber_wood_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).sound(SoundType.GRASS).strength(0.2F).randomTicks().noOcclusion().isValidSpawn(WSBlocks::ocelotOrParrot).isSuffocating(WSBlocks::never).isViewBlocking(WSBlocks::never)) {
-        @Override
-        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 30;
-        }
-        @Override
-        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 60;
-        }
-    });
+    public static final RegistryObject<RotatedPillarBlock> BLOCK_RUBBER_WOOD_LOG = WSRegisters
+            .blockRegister.register("rubber_wood_log", () ->
+                    new RotatedPillarBlock(BlockBehaviour.Properties
+                            .of(Material.WOOD, (blockState) ->
+                                    blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL)
+                            .sound(SoundType.WOOD)
+                            .strength(2.0F))
+                    {
+                        @Override
+                        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 5;
+                        }
 
-    public static final RegistryObject<SaplingBlock> BLOCK_RUBBER_WOOD_SAPLING = WSRegisters.blockRegister.register("rubber_wood_sapling", () -> new SaplingBlock(new RubberTreeGrower(),  BlockBehaviour.Properties.of(Material.PLANT).sound(SoundType.GRASS).noCollission().randomTicks().instabreak()) {
-        @Override
-        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 60;
-        }
-        @Override
-        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 100;
-        }
-    });
-    public static final RegistryObject<SaplingBlock> BLOCK_SACRED_RUBBER_WOOD_SAPLING = WSRegisters.blockRegister.register("sacred_rubber_wood_sapling", () -> new SaplingBlock(new SacredRubberTreeGrower(),  BlockBehaviour.Properties.of(Material.PLANT).sound(SoundType.GRASS).noCollission().randomTicks().instabreak()) {
-        @Override
-        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 60;
-        }
-        @Override
-        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 100;
-        }
-    });
+                        @Override
+                        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 5;
+                        }
+                    });
+    public static final RegistryObject<LeavesBlock> BLOCK_RUBBER_WOOD_LEAVES = WSRegisters
+            .blockRegister.register("rubber_wood_leaves", () ->
+                    new LeavesBlock(BlockBehaviour.Properties
+                            .of(Material.LEAVES)
+                            .sound(SoundType.GRASS)
+                            .strength(0.2F)
+                            .randomTicks()
+                            .noOcclusion()
+                            .isValidSpawn(WSBlocks::ocelotOrParrot)
+                            .isSuffocating(WSBlocks::never)
+                            .isViewBlocking(WSBlocks::never))
+                    {
+                        @Override
+                        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 30;
+                        }
 
-    public static final RegistryObject<LiquidBlock> BLOCK_LIQUID_TREE_SAP = WSRegisters.blockRegister.register("tree_sap", () -> new LiquidBlock(WSFluids.FLUID_TREE_SAP_SOURCE, BlockBehaviour.Properties.of(Material.WATER, MaterialColor.WOOD).noCollission().strength(100.0f).noLootTable()));
+                        @Override
+                        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 60;
+                        }
+                    });
+
+    public static final RegistryObject<SaplingBlock> BLOCK_RUBBER_WOOD_SAPLING = WSRegisters
+            .blockRegister.register("rubber_wood_sapling", () ->
+                    new SaplingBlock(
+                            new RubberTreeGrower(),
+                            BlockBehaviour.Properties
+                                    .of(Material.PLANT)
+                                    .sound(SoundType.GRASS)
+                                    .noCollission()
+                                    .randomTicks()
+                                    .instabreak())
+                    {
+                        @Override
+                        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 60;
+                        }
+
+                        @Override
+                        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 100;
+                        }
+                    });
+    public static final RegistryObject<SaplingBlock> BLOCK_SACRED_RUBBER_WOOD_SAPLING = WSRegisters
+            .blockRegister.register("sacred_rubber_wood_sapling", () ->
+                    new SaplingBlock(
+                            new SacredRubberTreeGrower(),
+                            BlockBehaviour.Properties
+                                    .of(Material.PLANT)
+                                    .sound(SoundType.GRASS)
+                                    .noCollission()
+                                    .randomTicks()
+                                    .instabreak())
+                    {
+                        @Override
+                        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 60;
+                        }
+
+                        @Override
+                        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 100;
+                        }
+                    });
+
+    public static final RegistryObject<LiquidBlock> BLOCK_LIQUID_TREE_SAP = WSRegisters
+            .blockRegister.register("tree_sap", () ->
+                    new LiquidBlock(
+                            WSFluids.FLUID_TREE_SAP_SOURCE,
+                            BlockBehaviour.Properties
+                                    .of(Material.WATER, MaterialColor.WOOD)
+                                    .noCollission()
+                                    .strength(100.0f)
+                                    .noLootTable()));
 
 
     public static final List<RegistryObject<? extends Block>> blocks = new ArrayList<>();

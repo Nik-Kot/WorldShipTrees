@@ -13,10 +13,16 @@ import java.util.List;
 
 public class WSFeatures {
 
-    public static final RegistryObject<ConfiguredFeature<?, ?>> CONF_FEATURE_TREE_RUBBER = WSRegisters.configuredFeatureRegister.register("rubber_tree", () -> new ConfiguredFeature<>(Feature.TREE, WSTreeConfigurations.TREE_RUBBER));
+    public static final RegistryObject<ConfiguredFeature<?, ?>> CONF_FEATURE_TREE_RUBBER = WSRegisters
+            .configuredFeatureRegister.register("rubber_tree", () ->
+                    new ConfiguredFeature<>(Feature.TREE, WSTreeConfigurations.TREE_RUBBER));
 
-    public static final RegistryObject<WSTreeFeature> FEATURE_WORLDSHIP_TREE = WSRegisters.featureRegister.register("worldship_tree", () -> new WSTreeFeature(WSTreeConfiguration.CODEC));
-    public static final RegistryObject<ConfiguredFeature<?, ?>> CONF_FEATURE_TREE_SACRED_RUBBER = WSRegisters.configuredFeatureRegister.register("sacred_rubber_tree", () -> new ConfiguredFeature<>(FEATURE_WORLDSHIP_TREE.get(), WSTreeConfigurations.TREE_SACRED_RUBBER));
+    public static final RegistryObject<WSTreeFeature> FEATURE_WORLDSHIP_TREE = WSRegisters
+            .featureRegister.register("worldship_tree", () ->
+                    new WSTreeFeature(WSTreeConfiguration.CODEC));
+    public static final RegistryObject<ConfiguredFeature<?, ?>> CONF_FEATURE_TREE_SACRED_RUBBER = WSRegisters
+            .configuredFeatureRegister.register("sacred_rubber_tree", () ->
+                    new ConfiguredFeature<>(FEATURE_WORLDSHIP_TREE.get(), WSTreeConfigurations.TREE_SACRED_RUBBER));
 
     public static final List<RegistryObject<? extends Feature<?>>> features_trees = new ArrayList<>();
     public static final List<RegistryObject<? extends ConfiguredFeature<?, ?>>> configuredFeatures = new ArrayList<>();

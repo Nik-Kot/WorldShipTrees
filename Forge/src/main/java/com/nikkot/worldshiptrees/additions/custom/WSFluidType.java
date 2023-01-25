@@ -23,6 +23,9 @@ public class WSFluidType extends FluidType {
     private int tintColor = 0xFFFFFFFF;
     private Vector3f fogColor = null;
 
+    private float fogStart = 0f;
+    private float fogEnd = 0f;
+
     public WSFluidType(final Properties properties) {
         super(properties);
     }
@@ -52,8 +55,21 @@ public class WSFluidType extends FluidType {
         return this;
     }
 
-    public WSFluidType fogColor(Vector3f fogColor) {
-        this.fogColor = fogColor;
+    public WSFluidType fogColor(int color) {
+        float red = (color >>> 16) & 0xFF;
+        float green = (color >>> 8) & 0xFF;
+        float blue = color & 0xFF;
+        this.fogColor = new Vector3f(red / 255f, green / 255f, blue / 255f);
+        return this;
+    }
+
+    public WSFluidType fogStart(float fogStart) {
+        this.fogStart = fogStart;
+        return this;
+    }
+
+    public WSFluidType fogEnd(float fogEnd) {
+        this.fogEnd = fogEnd;
         return this;
     }
 
@@ -99,8 +115,12 @@ public class WSFluidType extends FluidType {
 
             @Override
             public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
-                RenderSystem.setShaderFogStart(1f);
-                RenderSystem.setShaderFogEnd(8f);
+                RenderSystem.setShaderFogStart(fogStart);
+                if (fogEnd != 0f) {
+                    RenderSystem.setShaderFogEnd(fogEnd);
+                } else {
+                    RenderSystem.setShaderFogEnd(renderDistance);
+                }
             }
         });
 

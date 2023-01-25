@@ -40,4 +40,6 @@ public class WSColors {
     };
 
     public static final int tree_sap = MaterialColor.WOOD.col + 0xFF000000;
+
+    public static final int podzol = MaterialColor.PODZOL.col + 0xFF000000;
 }

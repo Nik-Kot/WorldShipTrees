@@ -13,15 +13,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WSTreeGenTypes {
-    public static final RegistryObject<TrunkPlacerType<?>> WS_TRUNK_PLACER = WSRegisters.trunkPlacerRegister.register("worldship_trunk_placer", () -> new TrunkPlacerType<>(WSTrunkPlacer.CODEC));
+    public static final RegistryObject<TrunkPlacerType<?>> WS_TRUNK_PLACER = WSRegisters
+            .trunkPlacerRegister.register("worldship_trunk_placer", () ->
+                    new TrunkPlacerType<>(WSTrunkPlacer.CODEC));
 
-    public static final RegistryObject<TreeDecoratorType<?>> WS_TREE_DECORATOR = WSRegisters.treeDecoratorRegister.register("worldship_tree_decorator", () -> new TreeDecoratorType<>(WSTreeDecorator.CODEC));
+    public static final RegistryObject<TreeDecoratorType<?>> WS_TREE_DECORATOR = WSRegisters
+            .treeDecoratorRegister.register("worldship_tree_decorator", () ->
+                    new TreeDecoratorType<>(WSTreeDecorator.CODEC));
 
-    public static final RegistryObject<RootPlacerType<?>> WS_ROOT_PLACER = WSRegisters.rootPlacerRegister.register("worldship_root_placer", () -> new RootPlacerType<>(WSRootPlacer.CODEC));
+    public static final RegistryObject<RootPlacerType<?>> WS_ROOT_PLACER = WSRegisters
+            .rootPlacerRegister.register("worldship_root_placer", () ->
+                    new RootPlacerType<>(WSRootPlacer.CODEC));
 
-    public static final RegistryObject<FoliagePlacerType<?>> WS_FOLIAGE_PLACER = WSRegisters.foliagePlacerRegister.register("worldship_foliage_placer", () -> new FoliagePlacerType<>(WSFoliagePlacer.CODEC));
+    public static final RegistryObject<FoliagePlacerType<?>> WS_FOLIAGE_PLACER = WSRegisters
+            .foliagePlacerRegister.register("worldship_foliage_placer", ()
+                    -> new FoliagePlacerType<>(WSFoliagePlacer.CODEC));
 
-    public static final RegistryObject<FeatureSizeType<?>> WS_FEATURE_SIZE = WSRegisters.featureSizeRegister.register("worldship_feature_size", () -> new FeatureSizeType<>(WSFeatureSize.CODEC));
+    public static final RegistryObject<FeatureSizeType<?>> WS_FEATURE_SIZE = WSRegisters
+            .featureSizeRegister.register("worldship_feature_size", () ->
+                    new FeatureSizeType<>(WSFeatureSize.CODEC));
 
 
     public static final List<RegistryObject<TrunkPlacerType<?>>> trunk_placers = new ArrayList<>();

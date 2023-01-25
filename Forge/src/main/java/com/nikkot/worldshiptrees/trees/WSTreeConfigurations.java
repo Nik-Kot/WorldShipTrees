@@ -1,6 +1,6 @@
 package com.nikkot.worldshiptrees.trees;
 
-import com.nikkot.worldshiptrees.objects.WSBlocks;
+import com.nikkot.worldshiptrees.additions.WSBlocks;
 import com.nikkot.worldshiptrees.treegen2.WSFeatureSize;
 import com.nikkot.worldshiptrees.treegen2.WSFoliagePlacer;
 import com.nikkot.worldshiptrees.treegen2.WSTreeConfiguration;

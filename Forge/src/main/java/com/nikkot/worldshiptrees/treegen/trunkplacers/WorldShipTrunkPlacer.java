@@ -3,7 +3,6 @@ package com.nikkot.worldshiptrees.treegen.trunkplacers;
 import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.nikkot.worldshiptrees.objects.WSRegisters;
 import com.nikkot.worldshiptrees.treegen.WorldShipTreeConfiguration;
 import com.nikkot.worldshiptrees.treegen.WorldShipTreeFeature;
 import com.nikkot.worldshiptrees.treegen.foliageplacers.WorldShipFoliagePlacer;

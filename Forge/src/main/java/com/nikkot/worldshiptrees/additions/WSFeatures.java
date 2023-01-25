@@ -1,4 +1,4 @@
-package com.nikkot.worldshiptrees.objects;
+package com.nikkot.worldshiptrees.additions;
 
 import com.nikkot.worldshiptrees.treegen2.WSTreeConfiguration;
 import com.nikkot.worldshiptrees.treegen2.WSTreeFeature;

@@ -1,9 +1,8 @@
-package com.nikkot.worldshiptrees.objects;
+package com.nikkot.worldshiptrees.additions;
 
-import com.nikkot.worldshiptrees.WSBucketItem;
+import com.nikkot.worldshiptrees.additions.custom.WSBucketItem;
 import com.nikkot.worldshiptrees.WorldShipTrees;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;

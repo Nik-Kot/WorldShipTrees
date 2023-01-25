@@ -1,7 +1,7 @@
-package com.nikkot.worldshiptrees.objects;
+package com.nikkot.worldshiptrees.additions;
 
-import com.nikkot.worldshiptrees.trees.RubberTreeGrower;
-import com.nikkot.worldshiptrees.trees.SacredRubberTreeGrower;
+import com.nikkot.worldshiptrees.trees.growers.RubberTreeGrower;
+import com.nikkot.worldshiptrees.trees.growers.SacredRubberTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.EntityType;

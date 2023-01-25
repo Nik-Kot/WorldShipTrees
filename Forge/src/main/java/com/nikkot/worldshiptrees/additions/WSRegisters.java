@@ -1,4 +1,4 @@
-package com.nikkot.worldshiptrees.objects;
+package com.nikkot.worldshiptrees.additions;
 
 import com.nikkot.worldshiptrees.WorldShipTrees;
 import net.minecraft.core.Registry;

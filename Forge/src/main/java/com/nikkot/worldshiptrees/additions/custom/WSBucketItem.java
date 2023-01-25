@@ -1,4 +1,4 @@
-package com.nikkot.worldshiptrees;
+package com.nikkot.worldshiptrees.additions.custom;
 
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;

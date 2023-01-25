@@ -1,4 +1,4 @@
-package com.nikkot.worldshiptrees;
+package com.nikkot.worldshiptrees.additions.custom;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;

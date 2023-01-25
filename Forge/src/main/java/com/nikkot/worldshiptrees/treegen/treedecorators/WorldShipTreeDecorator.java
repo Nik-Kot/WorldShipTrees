@@ -1,7 +1,6 @@
 package com.nikkot.worldshiptrees.treegen.treedecorators;
 
 import com.mojang.serialization.Codec;
-import com.nikkot.worldshiptrees.objects.WSRegisters;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;

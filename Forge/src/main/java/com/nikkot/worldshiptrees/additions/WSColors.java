@@ -1,6 +1,6 @@
-package com.nikkot.worldshiptrees.objects;
+package com.nikkot.worldshiptrees.additions;
 
-import com.nikkot.worldshiptrees.WSBucketItem;
+import com.nikkot.worldshiptrees.additions.custom.WSBucketItem;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.core.BlockPos;

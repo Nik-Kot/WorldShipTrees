@@ -1,7 +1,7 @@
 package com.nikkot.worldshiptrees;
 
 import com.mojang.logging.LogUtils;
-import com.nikkot.worldshiptrees.objects.*;
+import com.nikkot.worldshiptrees.additions.*;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;

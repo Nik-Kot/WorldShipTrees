@@ -1,15 +1,31 @@
 plugins {
-	id 'fabric-loom' version '1.0-SNAPSHOT'
+	id 'fabric-loom' version '1.0.17'
 	id 'maven-publish'
 	
+}
+
+ext {
+    // Fabric Properties
+    // check these on https://fabricmc.net/develop
+    minecraft_version="1.19.2"
+    yarn_mappings="build.28"
+    loader_version="0.14.13"
+
+    // Mod Properties
+    mod_version="1.0.0"
+    maven_group="com.example"
+    archives_base_name="examplemod"
+
+    // Dependencies
+    fabric_version="0.73.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-archivesBaseName = project.archives_base_name
-version = project.mod_version
-group = project.maven_group
+archivesBaseName = archives_base_name
+version = mod_version
+group = maven_group
 
 repositories {
 	// Add repositories to retrieve artifacts from in here.
@@ -35,7 +51,7 @@ loom {
             name "Data Generation"
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-            vmArg "-Dfabric-api.datagen.modid=${project.archives_base_name}"
+            vmArg "-Dfabric-api.datagen.modid=$archives_base_name"
  
             runDir "build/datagen"
         }
@@ -54,39 +70,42 @@ sourceSets {
 }
 dependencies {
 	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	minecraft "com.mojang:minecraft:$minecraft_version"
 
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    //mappings loom.officialMojangMappings()
+    //mappings "net.fabricmc:yarn:$minecraft_version+$yarn_mappings:v2"
+    mappings loom.officialMojangMappings()
     /*mappings loom.layered {
-        mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+        mappings "net.fabricmc:yarn:$minecraft_version+$yarn_mappings:v2"
         officialMojangMappings()
     }*/
 
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc:fabric-loader:$loader_version"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version+$minecraft_version"
 	
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
-	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:$fabric_version+$minecraft_version"
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property "version", version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": version
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = 'UTF-8'
 	it.options.release = 17
 }
 
 java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
 	// If you remove this line, sources will not be generated.
@@ -95,7 +114,7 @@ java {
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename { "${it}_$archives_base_name"}
 	}
 }
 

@@ -3,8 +3,23 @@ plugins {
 	id 'org.quiltmc.loom' version '1.0.16'
 }
 
+ext {
+	// Mod Properties
+	mod_version = "1.0.0"
+	maven_group = "com.nikkot"
+	archives_base_name = "worldshiptrees"
+
+	// The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
+	minecraft_version = "1.19.2"
+	quilt_mappings_version = "build.21"
+	quilt_loader_version = "0.18.1-beta.64"
+	quilted_fabric_api_version = "4.0.0-beta.27+0.73.0"
+
+	qsl_version = "3.0.0-beta.29"
+}
+
 archivesBaseName = project.archives_base_name
-version = "${project.version}+${project.minecraft_version}"
+version = "${project.mod_version}+${project.minecraft_version}"
 group = project.maven_group
 
 repositories {
@@ -18,20 +33,20 @@ repositories {
 // All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
 // See https://docs.gradle.org/current/userguide/platforms.html for information on how version catalogs work.
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	minecraft "com.mojang:minecraft:$minecraft_version"
 
 	//mappings "org.quiltmc:quilt-mappings:${project.quilt_mappings_version}:intermediary-v2"
 	// Replace the above line with the block below if you want to use Mojang mappings as your primary mappings, falling back on QM for parameters and Javadocs
 	mappings loom.layered {
-		mappings "org.quiltmc:quilt-mappings:${project.quilt_mappings_version}:intermediary-v2"
+		mappings "org.quiltmc:quilt-mappings:$minecraft_version+$quilt_mappings_version:intermediary-v2"
 		officialMojangMappings()
 	}
 
-	modImplementation "org.quiltmc:quilt-loader:${project.quilt_loader_version}"
+	modImplementation "org.quiltmc:quilt-loader:$quilt_loader_version"
 
 	// QSL is not a complete API; You will need Quilted Fabric API to fill in the gaps.
 	// Quilted Fabric API will automatically pull in the correct QSL version.
-	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${project.quilted_fabric_api_version}"
+	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:$quilted_fabric_api_version-$minecraft_version"
 	// modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated:${project.quilted_fabric_api_version}"
 }
 

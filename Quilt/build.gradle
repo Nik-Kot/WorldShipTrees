@@ -36,7 +36,7 @@ repositories {
 dependencies {
 	minecraft "com.mojang:minecraft:$minecraft_version"
 
-	//mappings "org.quiltmc:quilt-mappings:${project.quilt_mappings_version}:intermediary-v2"
+	//mappings "org.quiltmc:quilt-mappings:$minecraft_version+$quilt_mappings_version:intermediary-v2"
 	// Replace the above line with the block below if you want to use Mojang mappings as your primary mappings, falling back on QM for parameters and Javadocs
 	mappings loom.layered {
 		mappings "org.quiltmc:quilt-mappings:$minecraft_version+$quilt_mappings_version:intermediary-v2"
@@ -82,7 +82,7 @@ java {
 // If you plan to use a different file for the license, don't forget to change the file name here!
 jar {
 	from('LICENSE') {
-		rename { "${it}_${archivesBaseName}" }
+		rename { "${it}_$archives_base_name" }
 	}
 }
 

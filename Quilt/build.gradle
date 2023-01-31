@@ -18,9 +18,9 @@ ext {
 	qsl_version = "3.0.0-beta.29"
 }
 
-archivesBaseName = project.archives_base_name
-version = "${project.mod_version}+${project.minecraft_version}"
-group = project.maven_group
+archivesBaseName = archives_base_name
+version = "$mod_version+$minecraft_version"
+group = maven_group
 
 repositories {
 	// Add repositories to retrieve artifacts from in here.
@@ -35,7 +35,7 @@ repositories {
 dependencies {
 	minecraft "com.mojang:minecraft:$minecraft_version"
 
-	//mappings "org.quiltmc:quilt-mappings:${project.quilt_mappings_version}:intermediary-v2"
+	//mappings "org.quiltmc:quilt-mappings:$minecraft_version+$quilt_mappings_version:intermediary-v2"
 	// Replace the above line with the block below if you want to use Mojang mappings as your primary mappings, falling back on QM for parameters and Javadocs
 	mappings loom.layered {
 		mappings "org.quiltmc:quilt-mappings:$minecraft_version+$quilt_mappings_version:intermediary-v2"
@@ -47,7 +47,7 @@ dependencies {
 	// QSL is not a complete API; You will need Quilted Fabric API to fill in the gaps.
 	// Quilted Fabric API will automatically pull in the correct QSL version.
 	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:$quilted_fabric_api_version-$minecraft_version"
-	// modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated:${project.quilted_fabric_api_version}"
+	// modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated:$quilted_fabric_api_version-$minecraft_version"
 }
 
 processResources {
@@ -81,7 +81,7 @@ java {
 // If you plan to use a different file for the license, don't forget to change the file name here!
 jar {
 	from('LICENSE') {
-		rename { "${it}_${archivesBaseName}" }
+		rename { "${it}_$archives_base_name" }
 	}
 }
 

@@ -1,12 +1,13 @@
 package com.nikkot.worldshiptrees.additions;
 
-import com.mojang.math.Vector3f;
 import com.nikkot.worldshiptrees.additions.custom.WSFluidType;
 import com.nikkot.worldshiptrees.WorldShipTrees;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.SoundAction;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraftforge.common.SoundActions;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.DeferredRegister;
@@ -31,7 +32,25 @@ public class WSFluids {
             .fluidTypeRegister.register("tree_sap_type", () ->
                     new WSFluidType (
                             FluidType.Properties.create()
-                                    .sound(SoundAction.get("swim"), SoundEvents.PLAYER_SWIM))
+                                    .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
+                                    .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)
+                                    .sound(SoundActions.FLUID_VAPORIZE, SoundEvents.FIRE_EXTINGUISH)
+                                    .canSwim(true)
+                                    .canDrown(true)
+                                    .canExtinguish(true)
+                                    .canConvertToSource(false)
+                                    .canHydrate(true)
+                                    .canPushEntity(true)
+                                    .fallDistanceModifier(0)
+                                    .lightLevel(0)
+                                    .rarity(Rarity.COMMON)
+                                    .temperature(300)
+                                    .viscosity(1000)
+                                    .density(1000)
+                                    .motionScale(0.014d)
+                                    .supportsBoating(true)
+                                    .pathType(BlockPathTypes.WATER)
+                                    .adjacentPathType(BlockPathTypes.WATER_BORDER))
                             .stillTexture(RL_WATER_STILL)
                             .flowingTexture(RL_WATER_FLOWING)
                             .overlayTexture(RL_WATER_OVERLAY)

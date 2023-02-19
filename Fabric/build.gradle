@@ -1,7 +1,6 @@
 plugins {
-	id 'fabric-loom' version '1.0.17'
+	id 'fabric-loom' version '1.0.17' //'1.1.9'
 	id 'maven-publish'
-	
 }
 
 ext {
@@ -9,7 +8,7 @@ ext {
     // check these on https://fabricmc.net/develop
     minecraft_version="1.19.3"
     yarn_mappings="build.5"
-    loader_version="0.14.13"
+    loader_version="0.14.14"
 
     // Mod Properties
     mod_version="1.0.0"
@@ -17,7 +16,7 @@ ext {
     archives_base_name="examplemod"
 
     // Dependencies
-    fabric_version="0.73.0"
+    fabric_version="0.74.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17

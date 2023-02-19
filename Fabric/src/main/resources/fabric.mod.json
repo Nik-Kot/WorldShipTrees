@@ -18,22 +18,15 @@
 		"main": [
 			"com.example.ExampleMod"
 		],
-		"client": [
-			"com.example.ExampleModClient"
-		],
 		"fabric-datagen": [
 			"com.example.ExampleModDataGenerator"
 		]
 	},
 	"mixins": [
-		"examplemod.mixins.json",
-		{
-			"config": "examplemod.client.mixins.json",
-			"environment": "client"
-		}
+		"examplemod.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.14.13",
+		"fabricloader": ">=0.14.14",
 		"minecraft": "~1.19.3",
 		"java": ">=17",
 		"fabric-api": "*"

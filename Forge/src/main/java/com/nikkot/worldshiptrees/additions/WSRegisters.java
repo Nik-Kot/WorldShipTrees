@@ -2,6 +2,7 @@ package com.nikkot.worldshiptrees.additions;
 
 import com.nikkot.worldshiptrees.WorldShipTrees;
 import net.minecraft.core.Registry;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -63,6 +64,9 @@ public class WSRegisters {
     public static final DeferredRegister<ConfiguredFeature<?, ?>> configuredFeatureRegister = DeferredRegister
             .create(Registry.CONFIGURED_FEATURE_REGISTRY, WorldShipTrees.MODID);
 
+    public static final DeferredRegister<EntityType<?>> entityTypeRegister = DeferredRegister
+            .create(Registry.ENTITY_TYPE_REGISTRY, WorldShipTrees.MODID);
+
     public static final List<DeferredRegister<?>> registers = new ArrayList<>();
     public static void registerEverything(IEventBus eventBus) {
 
@@ -112,6 +116,10 @@ public class WSRegisters {
         WSItems.registerItems(itemRegister);
         itemRegister.register(eventBus);
         registers.add(itemRegister);
+
+        WSEntities.registerEntities(entityTypeRegister);
+        entityTypeRegister.register(eventBus);
+        registers.add(entityTypeRegister);
 
     }
 

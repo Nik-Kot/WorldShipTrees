@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public class WSEntity extends Silverfish {
 
 
-    public WSEntity(EntityType<? extends Silverfish> p_33523_, Level p_33524_) {
-        super(p_33523_, p_33524_);
+    public WSEntity(EntityType<? extends Silverfish> entityType, Level level) {
+        super(entityType, level);
     }
 }

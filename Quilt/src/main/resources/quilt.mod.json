@@ -24,7 +24,7 @@
 		"depends": [
 			{
 				"id": "quilt_loader",
-				"versions": ">=0.18.1-"
+				"versions": ">=0.18.3-"
 			},
 			{
 				"id": "quilted_fabric_api",
@@ -35,6 +35,5 @@
 				"versions": ">=1.19.2"
 			}
 		]
-	},
-	"mixin": "worldshiptrees.mixins.json"
+	}
 }

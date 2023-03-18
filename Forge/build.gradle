@@ -7,7 +7,7 @@ plugins {
 
 ext {
     mcversion = '1.19.2'
-    forgeversion = '43.2.6'
+    forgeversion = '43.2.7'
     modid = 'worldshiptrees'
     author = 'nikkot'
     modname = 'Pakratt\'s Worldships'
@@ -109,10 +109,10 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
 
-            property 'forge.logging.console.level', modid
+            property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', modid, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
                 examplemod {

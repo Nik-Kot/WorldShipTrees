@@ -1,13 +1,13 @@
 package com.nikkot.worldshiptrees.events;
 
 import com.nikkot.worldshiptrees.WorldShipTrees;
-import com.nikkot.worldshiptrees.additions.WSBlocks;
-import com.nikkot.worldshiptrees.additions.WSColors;
-import com.nikkot.worldshiptrees.additions.WSFluids;
-import com.nikkot.worldshiptrees.additions.WSItems;
+import com.nikkot.worldshiptrees.additions.*;
+import com.nikkot.worldshiptrees.additions.custom.client.WSEntityModel;
+import com.nikkot.worldshiptrees.additions.custom.client.WSEntityRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -38,5 +38,15 @@ public class WSClientBusEvents {
     public static void registerItemColors(RegisterColorHandlersEvent.Item event){
         event.register(WSColors.item_rubber_leaves, WSItems.ITEM_RUBBER_WOOD_LEAVES.get());
         event.register(WSColors.item_bucket, WSItems.ITEM_BUCKET_TREE_SAP.get());
+    }
+
+    @SubscribeEvent
+    public static void entityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(WSEntities.ws_entity.get(), WSEntityRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(WSEntityModel.LAYER_LOCATION, WSEntityModel::createBodyLayer);
     }
 }

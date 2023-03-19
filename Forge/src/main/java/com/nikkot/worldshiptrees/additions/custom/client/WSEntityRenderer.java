@@ -11,13 +11,16 @@ public class WSEntityRenderer extends MobRenderer<WSEntity, WSEntityModel<WSEnti
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(WorldShipTrees.MODID, "textures/entity/ws_entity.png");
 
-    public WSEntityRenderer(EntityRendererProvider.Context context, WSEntityModel<WSEntity> entityModel, float shadowSize) {
-        super(context, entityModel, shadowSize);
+    public static final float shadowSize = 0.5f;
+
+
+    public WSEntityRenderer(EntityRendererProvider.Context context) {
+        super(context, new WSEntityModel<>(context.bakeLayer(WSEntityModel.LAYER_LOCATION)), shadowSize);
     }
 
     @Override
     @NotNull
-    public ResourceLocation getTextureLocation(@NotNull WSEntity wsEntity) {
+    public ResourceLocation getTextureLocation(@NotNull WSEntity entity) {
         return TEXTURE;
     }
 }

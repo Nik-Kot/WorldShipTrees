@@ -5,6 +5,7 @@ package com.nikkot.worldshiptrees.additions.custom.client;
 
 import com.nikkot.worldshiptrees.WorldShipTrees;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.SilverfishModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -20,10 +21,14 @@ import org.jetbrains.annotations.NotNull;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 
 
-public class WSEntityModel<T extends Entity> extends EntityModel<T> {
+public class WSEntityModel<T extends Entity> extends SilverfishModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(WorldShipTrees.MODID, "ws_entity"), "main");
-	private final ModelPart Silverfish;
+
+	public WSEntityModel(ModelPart root) {
+		super(root);
+	}
+	/*private final ModelPart Silverfish;
 
 	public WSEntityModel(ModelPart root) {
 		this.Silverfish = root.getChild("Silverfish");
@@ -64,5 +69,5 @@ public class WSEntityModel<T extends Entity> extends EntityModel<T> {
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		Silverfish.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-	}
+	}*/
 }

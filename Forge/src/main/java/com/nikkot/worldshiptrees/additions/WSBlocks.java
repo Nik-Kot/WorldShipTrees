@@ -1,5 +1,6 @@
 package com.nikkot.worldshiptrees.additions;
 
+import com.nikkot.worldshiptrees.additions.custom.WSInfestedWoodBlock;
 import com.nikkot.worldshiptrees.trees.growers.RubberTreeGrower;
 import com.nikkot.worldshiptrees.trees.growers.SacredRubberTreeGrower;
 import net.minecraft.core.BlockPos;
@@ -115,6 +116,16 @@ public class WSBlocks {
                                     .noLootTable()));
 
 
+
+    public static final RegistryObject<WSInfestedWoodBlock> BLOCK_INFESTED_RUBBER_WOOD_LOG = WSRegisters
+            .blockRegister.register("infested_rubber_wood_log", () ->
+                    new WSInfestedWoodBlock(BLOCK_RUBBER_WOOD_LOG.get(), BlockBehaviour.Properties
+                            .of(Material.WOOD, (blockState) ->
+                                    blockState.getValue(WSInfestedWoodBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL)
+                            .sound(SoundType.WOOD)
+                            .strength(2.0F)));
+
+
     public static final List<RegistryObject<? extends Block>> blocks = new ArrayList<>();
 
 
@@ -131,6 +142,7 @@ public class WSBlocks {
 
         blocks.add(BLOCK_RUBBER_WOOD_SAPLING);
         blocks.add(BLOCK_SACRED_RUBBER_WOOD_SAPLING);
+        blocks.add(BLOCK_INFESTED_RUBBER_WOOD_LOG);
 
         return blocks;
     }

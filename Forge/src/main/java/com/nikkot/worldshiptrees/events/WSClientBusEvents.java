@@ -42,7 +42,7 @@ public class WSClientBusEvents {
 
     @SubscribeEvent
     public static void entityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(WSEntities.ws_entity.get(), WSEntityRenderer::new);
+        event.registerEntityRenderer(WSEntities.ENTITY_WS_ENTITY.get(), WSEntityRenderer::new);
     }
 
     @SubscribeEvent

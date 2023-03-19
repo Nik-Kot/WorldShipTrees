@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "worldshiptrees:block/rubber_wood_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "worldshiptrees:block/rubber_wood_log_vertical"
+    },
+    "axis=z": {
+      "model": "worldshiptrees:block/rubber_wood_log_horizontal",
+      "x": 90
+    }
+  }
+}

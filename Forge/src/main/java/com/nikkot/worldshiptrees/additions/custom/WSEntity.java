@@ -60,11 +60,11 @@ public class WSEntity extends Silverfish {
         }
     }
 
-    /*
+
     @NotNull
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 8.0d).add(Attributes.MOVEMENT_SPEED, 0.25d).add(Attributes.ATTACK_DAMAGE, 1.0d);
-    }*/
+    }
 
     public static class WSEntityMergeWithWoodGoal extends RandomStrollGoal {
         @Nullable
@@ -86,9 +86,9 @@ public class WSEntity extends Silverfish {
                 RandomSource randomsource = this.mob.getRandom();
                 if (ForgeEventFactory.getMobGriefingEvent(this.mob.level, this.mob) && randomsource.nextInt(reducedTickDelay(10)) == 0) {
                     this.selectedDirection = Direction.getRandom(randomsource);
-                    BlockPos blockpos = (new BlockPos(this.mob.getX(), this.mob.getY() + 0.5D, this.mob.getZ())).relative(this.selectedDirection);
+                    BlockPos blockpos = (new BlockPos(this.mob.getX(), this.mob.getY() + 0.5d, this.mob.getZ())).relative(this.selectedDirection);
                     BlockState blockstate = this.mob.level.getBlockState(blockpos);
-                    if (WSInfestedBlock.isCompatibleHostBlock(blockstate)) {
+                    if (WSInfestedWoodBlock.isCompatibleHostBlock(blockstate)) {
                         this.doMerge = true;
                         return true;
                     }
@@ -112,8 +112,8 @@ public class WSEntity extends Silverfish {
                 LevelAccessor levelaccessor = this.mob.level;
                 BlockPos blockpos = (new BlockPos(this.mob.getX(), this.mob.getY() + 0.5d, this.mob.getZ())).relative(this.selectedDirection);
                 BlockState blockstate = levelaccessor.getBlockState(blockpos);
-                if (WSInfestedBlock.isCompatibleHostBlock(blockstate)) {
-                    levelaccessor.setBlock(blockpos, WSInfestedBlock.infestedStateByHost(blockstate), 3);
+                if (WSInfestedWoodBlock.isCompatibleHostBlock(blockstate)) {
+                    levelaccessor.setBlock(blockpos, WSInfestedWoodBlock.infestedStateByHost(blockstate), 3);
                     this.mob.spawnAnim();
                     this.mob.discard();
                 }
@@ -134,7 +134,6 @@ public class WSEntity extends Silverfish {
             if (this.lookForFriends == 0) {
                 this.lookForFriends = this.adjustedTickDelay(20);
             }
-
         }
 
         @Override
@@ -156,11 +155,11 @@ public class WSEntity extends Silverfish {
                             BlockPos blockpos1 = blockpos.offset(j, i, k);
                             BlockState blockstate = level.getBlockState(blockpos1);
                             Block block = blockstate.getBlock();
-                            if (block instanceof WSInfestedBlock) {
+                            if (block instanceof WSInfestedWoodBlock) {
                                 if (ForgeEventFactory.getMobGriefingEvent(level, this.wsEntity)) {
                                     level.destroyBlock(blockpos1, true, this.wsEntity);
                                 } else {
-                                    level.setBlock(blockpos1, ((WSInfestedBlock) block).hostStateByInfested(level.getBlockState(blockpos1)), 3);
+                                    level.setBlock(blockpos1, ((WSInfestedWoodBlock) block).hostStateByInfested(level.getBlockState(blockpos1)), 3);
                                 }
 
                                 if (randomsource.nextBoolean()) {

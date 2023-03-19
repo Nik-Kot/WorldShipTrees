@@ -11,6 +11,6 @@ import net.minecraftforge.fml.common.Mod;
 public class WSBusEvents {
     @SubscribeEvent
     public static void entityAttributes(EntityAttributeCreationEvent event) {
-        event.put(WSEntities.ws_entity.get(), WSEntity.createAttributes().build());
+        event.put(WSEntities.ENTITY_WS_ENTITY.get(), WSEntity.createAttributes().build());
     }
 }

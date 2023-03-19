@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "worldshiptrees:rubber_wood_log"
+    "worldshiptrees:rubber_wood_log",
+    "worldshiptrees:infested_rubber_wood_log"
   ]
 }

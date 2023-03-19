@@ -1,12 +1,19 @@
 {
   "block.worldshiptrees.rubber_wood_log": "Rubber Wood",
+  "block.worldshiptrees.infested_rubber_wood_log": "Infested Rubber Wood",
   "block.worldshiptrees.rubber_wood_leaves": "Rubber Leaves",
   "block.worldshiptrees.rubber_wood_sapling": "Rubber Sapling",
   "block.worldshiptrees.sacred_rubber_wood_sapling": "Sacred Rubber Sapling",
-  "item.worldshiptrees.creative_tab_item": "Pakratt's Worldships",
+  "item.worldshiptrees.rubber_wood_log": "Rubber Wood",
+  "item.worldshiptrees.infested_rubber_wood_log": "Infested Rubber Wood",
+  "item.worldshiptrees.rubber_wood_leaves": "Rubber Leaves",
   "item.worldshiptrees.rubber_wood_sapling": "Rubber Sapling",
   "item.worldshiptrees.sacred_rubber_wood_sapling": "Sacred Rubber Sapling",
-  "item.worldshiptrees.rubber_wood_log": "Rubber Wood",
-  "item.worldshiptrees.rubber_wood_leaves": "Rubber Leaves",
-  "itemGroup.worldshiptrees": "Pakratt's Worldships"
+  "item.worldshiptrees.tree_sap_bucket": "Tree Sap Bucket",
+  "item.worldshiptrees.ws_entity_spawn_egg": "Tree Worm Spawn Egg",
+  "item.worldshiptrees.creative_tab_item": "Pakratt's Worldships",
+  "itemGroup.worldshiptrees": "Pakratt's Worldships",
+  "entity.worldshiptrees.ws_entity": "Tree Worm",
+  "fluid.worldshiptrees.tree_sap_source": "Tree Sap",
+  "fluid.worldshiptrees.tree_sap_flowing": "Sacred Rubber Sapling"
 }

@@ -3,6 +3,7 @@ package com.nikkot.worldshiptrees.additions;
 import com.nikkot.worldshiptrees.additions.custom.WSBucketItem;
 import com.nikkot.worldshiptrees.WorldShipTrees;
 import net.minecraft.world.item.*;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
@@ -80,6 +81,21 @@ public class WSItems {
                             WSColors.tree_sap));
 
 
+    public static final RegistryObject<BlockItem> ITEM_INFESTED_RUBBER_WOOD_LOG = WSRegisters
+            .itemRegister.register("infested_rubber_wood_log", () ->
+                    new BlockItem (
+                            WSBlocks.BLOCK_INFESTED_RUBBER_WOOD_LOG.get(),
+                            new Item.Properties()
+                                    .tab(CREATIVE_MODE_TAB)));
+
+
+    public static final RegistryObject<ForgeSpawnEggItem> ITEM_SPAWN_EGG_WS_ENTITY = WSRegisters
+            .itemRegister.register("ws_entity_spawn_egg", () ->
+                    new ForgeSpawnEggItem(WSEntities.ENTITY_WS_ENTITY,
+                            WSColors.tree_sap,
+                            WSColors.podzol,
+                            new Item.Properties()
+                                    .tab(CREATIVE_MODE_TAB)));
     public static final List<CreativeModeTab> tabs = new ArrayList<>();
     public static final List<RegistryObject<? extends Item>> items = new ArrayList<>();
 
@@ -91,6 +107,8 @@ public class WSItems {
         items.add(ITEM_RUBBER_WOOD_LEAVES);
         items.add(ITEM_RUBBER_WOOD_SAPLING);
         items.add(ITEM_SACRED_RUBBER_WOOD_SAPLING);
+
+        items.add(ITEM_INFESTED_RUBBER_WOOD_LOG);
 
         return items;
     }

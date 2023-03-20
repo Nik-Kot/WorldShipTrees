@@ -95,6 +95,13 @@ public class WSItems {
                             new Item.Properties()
                                     .tab(CREATIVE_MODE_TAB)));
 
+    public static final RegistryObject<BlockItem> ITEM_INFESTED_HOLLOW_RUBBER_WOOD_LOG = WSRegisters
+            .itemRegister.register("infested_hollow_rubber_wood_log", () ->
+                    new BlockItem (
+                            WSBlocks.BLOCK_INFESTED_HOLLOW_RUBBER_WOOD_LOG.get(),
+                            new Item.Properties()
+                                    .tab(CREATIVE_MODE_TAB)));
+
 
     public static final RegistryObject<ForgeSpawnEggItem> ITEM_SPAWN_EGG_WS_ENTITY = WSRegisters
             .itemRegister.register("ws_entity_spawn_egg", () ->
@@ -116,6 +123,9 @@ public class WSItems {
         items.add(ITEM_SACRED_RUBBER_WOOD_SAPLING);
 
         items.add(ITEM_INFESTED_RUBBER_WOOD_LOG);
+        items.add(ITEM_INFESTED_HOLLOW_RUBBER_WOOD_LOG);
+
+        items.add(ITEM_SPAWN_EGG_WS_ENTITY);
 
         return items;
     }

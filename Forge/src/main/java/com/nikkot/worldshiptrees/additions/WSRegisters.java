@@ -109,6 +109,10 @@ public class WSRegisters {
         configuredFeatureRegister.register(eventBus);
         registers.add(configuredFeatureRegister);
 
+        WSEntities.registerEntities(entityTypeRegister);
+        entityTypeRegister.register(eventBus);
+        registers.add(entityTypeRegister);
+
         WSBlocks.registerBlocksSecondary(blockRegister);
         blockRegister.register(eventBus);
         registers.add(blockRegister);
@@ -116,10 +120,6 @@ public class WSRegisters {
         WSItems.registerItems(itemRegister);
         itemRegister.register(eventBus);
         registers.add(itemRegister);
-
-        WSEntities.registerEntities(entityTypeRegister);
-        entityTypeRegister.register(eventBus);
-        registers.add(entityTypeRegister);
 
     }
 

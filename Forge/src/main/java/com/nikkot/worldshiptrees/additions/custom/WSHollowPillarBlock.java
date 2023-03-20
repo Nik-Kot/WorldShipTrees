@@ -45,7 +45,7 @@ public class WSHollowPillarBlock extends RotatedPillarBlock implements SimpleWat
     private static final VoxelShape SHAPE_Z = Shapes.or(SHAPE_BOTTOM, SHAPE_TOP, SHAPE_NORTH, SHAPE_SOUTH);
 
     public WSHollowPillarBlock(BlockBehaviour.Properties properties) {
-        super(properties);
+        super(properties.noOcclusion());
         registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
     }
 

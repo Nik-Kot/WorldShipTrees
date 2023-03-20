@@ -88,7 +88,7 @@ public class WSEntity extends Silverfish {
                     this.selectedDirection = Direction.getRandom(randomsource);
                     BlockPos blockpos = (new BlockPos(this.mob.getX(), this.mob.getY() + 0.5d, this.mob.getZ())).relative(this.selectedDirection);
                     BlockState blockstate = this.mob.level.getBlockState(blockpos);
-                    if (WSInfestedWoodBlock.isCompatibleHostBlock(blockstate)) {
+                    if (WSInfestedBlock.isCompatibleHostBlock(blockstate, this.mob.getType())) {
                         this.doMerge = true;
                         return true;
                     }
@@ -112,8 +112,8 @@ public class WSEntity extends Silverfish {
                 LevelAccessor levelaccessor = this.mob.level;
                 BlockPos blockpos = (new BlockPos(this.mob.getX(), this.mob.getY() + 0.5d, this.mob.getZ())).relative(this.selectedDirection);
                 BlockState blockstate = levelaccessor.getBlockState(blockpos);
-                if (WSInfestedWoodBlock.isCompatibleHostBlock(blockstate)) {
-                    levelaccessor.setBlock(blockpos, WSInfestedWoodBlock.infestedStateByHost(blockstate), 3);
+                if (WSInfestedBlock.isCompatibleHostBlock(blockstate, this.mob.getType())) {
+                    levelaccessor.setBlock(blockpos, WSInfestedBlock.infestedStateByHost(blockstate), 3);
                     this.mob.spawnAnim();
                     this.mob.discard();
                 }
@@ -155,11 +155,11 @@ public class WSEntity extends Silverfish {
                             BlockPos blockpos1 = blockpos.offset(j, i, k);
                             BlockState blockstate = level.getBlockState(blockpos1);
                             Block block = blockstate.getBlock();
-                            if (block instanceof WSInfestedWoodBlock) {
+                            if (block instanceof WSInfestedBlock && ((WSInfestedBlock) block).isCorrectEntity(wsEntity.getType())) {
                                 if (ForgeEventFactory.getMobGriefingEvent(level, this.wsEntity)) {
                                     level.destroyBlock(blockpos1, true, this.wsEntity);
                                 } else {
-                                    level.setBlock(blockpos1, ((WSInfestedWoodBlock) block).hostStateByInfested(level.getBlockState(blockpos1)), 3);
+                                    level.setBlock(blockpos1, ((WSInfestedBlock) block).hostStateByInfested(level.getBlockState(blockpos1)), 3);
                                 }
 
                                 if (randomsource.nextBoolean()) {

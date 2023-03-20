@@ -1,6 +1,8 @@
 package com.nikkot.worldshiptrees.additions;
 
-import com.nikkot.worldshiptrees.additions.custom.WSInfestedWoodBlock;
+import com.nikkot.worldshiptrees.additions.custom.WSHollowPillarBlock;
+import com.nikkot.worldshiptrees.additions.custom.WSInfestedBlock;
+import com.nikkot.worldshiptrees.additions.custom.WSInfestedPillarBlock;
 import com.nikkot.worldshiptrees.trees.growers.RubberTreeGrower;
 import com.nikkot.worldshiptrees.trees.growers.SacredRubberTreeGrower;
 import net.minecraft.core.BlockPos;
@@ -28,6 +30,26 @@ public class WSBlocks {
                                     blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL)
                             .sound(SoundType.WOOD)
                             .strength(2.0F))
+                    {
+                        @Override
+                        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 5;
+                        }
+
+                        @Override
+                        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 5;
+                        }
+                    });
+
+    public static final RegistryObject<WSHollowPillarBlock> BLOCK_HOLLOW_RUBBER_WOOD_LOG = WSRegisters
+            .blockRegister.register("hollow_rubber_wood_log", () ->
+                    new WSHollowPillarBlock(BlockBehaviour.Properties
+                            .of(Material.WOOD, (blockState) ->
+                                    blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL)
+                            .sound(SoundType.WOOD)
+                            .strength(1.0F)
+                            .noOcclusion())
                     {
                         @Override
                         public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
@@ -117,11 +139,11 @@ public class WSBlocks {
 
 
 
-    public static final RegistryObject<WSInfestedWoodBlock> BLOCK_INFESTED_RUBBER_WOOD_LOG = WSRegisters
+    public static final RegistryObject<WSInfestedBlock> BLOCK_INFESTED_RUBBER_WOOD_LOG = WSRegisters
             .blockRegister.register("infested_rubber_wood_log", () ->
-                    new WSInfestedWoodBlock(BLOCK_RUBBER_WOOD_LOG.get(), BlockBehaviour.Properties
+                    new WSInfestedBlock(BLOCK_RUBBER_WOOD_LOG.get(), WSEntities.ENTITY_WS_ENTITY.get(), BlockBehaviour.Properties
                             .of(Material.WOOD, (blockState) ->
-                                    blockState.getValue(WSInfestedWoodBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL)
+                                    blockState.getValue(WSInfestedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL)
                             .sound(SoundType.WOOD)
                             .strength(2.0F)));
 
@@ -132,6 +154,7 @@ public class WSBlocks {
     public static List<RegistryObject<? extends Block>> registerBlocks (DeferredRegister<Block> blockRegister) {
 
         blocks.add(BLOCK_RUBBER_WOOD_LOG);
+        blocks.add(BLOCK_HOLLOW_RUBBER_WOOD_LOG);
         blocks.add(BLOCK_RUBBER_WOOD_LEAVES);
         blocks.add(BLOCK_LIQUID_TREE_SAP);
 

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
-  "render_type": "minecraft:cutout",
+  "render_type": "minecraft:cutout_mipped",
   "textures": {
     "cross": "worldshiptrees:block/rubber_wood_sapling"
   }

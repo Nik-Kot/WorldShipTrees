@@ -45,6 +45,13 @@ public class WSItems {
                             WSBlocks.BLOCK_RUBBER_WOOD_LOG.get(),
                             new Item.Properties()
                                     .tab(CREATIVE_MODE_TAB)));
+
+    public static final RegistryObject<BlockItem> ITEM_HOLLOW_RUBBER_WOOD_LOG = WSRegisters
+            .itemRegister.register("hollow_rubber_wood_log", () ->
+                    new BlockItem (
+                            WSBlocks.BLOCK_HOLLOW_RUBBER_WOOD_LOG.get(),
+                            new Item.Properties()
+                                    .tab(CREATIVE_MODE_TAB)));
     public static final RegistryObject<BlockItem> ITEM_RUBBER_WOOD_LEAVES = WSRegisters
             .itemRegister.register("rubber_wood_leaves", () ->
                     new BlockItem (

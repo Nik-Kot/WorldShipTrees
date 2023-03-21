@@ -20,6 +20,7 @@ public interface WSInfestation {
     Map<Block, Block> INFESTED_BY_HOST_BLOCK = Maps.newIdentityHashMap();
     Map<Block, Block> HOST_BY_INFESTED_BLOCK = Maps.newIdentityHashMap();
     Map<Block, Supplier<? extends EntityType<? extends Mob>>> MOB_BY_INFESTED_BLOCK = Maps.newIdentityHashMap();
+    Map<Block, Supplier<? extends EntityType<? extends Mob>>> MOB_BY_HOST_BLOCK = Maps.newIdentityHashMap();
     Map<BlockState, BlockState> HOST_TO_INFESTED_STATES = Maps.newIdentityHashMap();
     Map<BlockState, BlockState> INFESTED_TO_HOST_STATES = Maps.newIdentityHashMap();
 
@@ -37,18 +38,16 @@ public interface WSInfestation {
     }
 
     default void registerInfestation(InfestationParams params) {
-        INFESTED_BY_HOST_BLOCK.put(params.infestedBlock, params.hostBlock);
-        HOST_BY_INFESTED_BLOCK.put(params.hostBlock, params.infestedBlock);
+        INFESTED_BY_HOST_BLOCK.put(params.hostBlock, params.infestedBlock);
+        HOST_BY_INFESTED_BLOCK.put(params.infestedBlock, params.hostBlock);
         MOB_BY_INFESTED_BLOCK.put(params.infestedBlock, params.entitySupplier);
+        MOB_BY_HOST_BLOCK.put(params.hostBlock, params.entitySupplier);
     }
 
     static boolean isCompatibleHostBlock(Block hostBlock, EntityType<?> entityType) {
-        Block infestedBlock = INFESTED_BY_HOST_BLOCK.get(hostBlock);
-        if(infestedBlock != null) {
-            Supplier<? extends EntityType<? extends Mob>> entitySupplier =  MOB_BY_INFESTED_BLOCK.get(infestedBlock);
-            if (entitySupplier != null) {
-                return entityType == entitySupplier.get();
-            }
+        Supplier<? extends EntityType<? extends Mob>> entitySupplier = MOB_BY_HOST_BLOCK.get(hostBlock);
+        if (entitySupplier != null) {
+            return entityType == entitySupplier.get();
         }
         return false;
     }
@@ -74,13 +73,21 @@ public interface WSInfestation {
     }
 
     static BlockState infestedStateByHost(BlockState blockState) {
-        return getNewStateWithProperties(HOST_TO_INFESTED_STATES, blockState, () ->
-                INFESTED_BY_HOST_BLOCK.get(blockState.getBlock()).defaultBlockState());
+        Block infestedBlock = INFESTED_BY_HOST_BLOCK.get(blockState.getBlock());
+        if (infestedBlock != null) {
+            return getNewStateWithProperties(HOST_TO_INFESTED_STATES, blockState, infestedBlock::defaultBlockState);
+        } else {
+            return blockState;
+        }
     }
 
     static BlockState hostStateByInfested(BlockState blockState) {
-        return getNewStateWithProperties(INFESTED_TO_HOST_STATES, blockState, () ->
-                HOST_BY_INFESTED_BLOCK.get(blockState.getBlock()).defaultBlockState());
+        Block hostBlock = HOST_BY_INFESTED_BLOCK.get(blockState.getBlock());
+        if (hostBlock != null) {
+            return getNewStateWithProperties(INFESTED_TO_HOST_STATES, blockState, hostBlock::defaultBlockState);
+        } else {
+            return blockState;
+        }
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})

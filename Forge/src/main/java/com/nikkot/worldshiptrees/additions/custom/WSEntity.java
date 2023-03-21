@@ -160,6 +160,12 @@ public class WSEntity extends Silverfish {
                                     level.destroyBlock(blockpos1, true, this.wsEntity);
                                 } else {
                                     level.setBlock(blockpos1, WSInfestation.hostStateByInfested(level.getBlockState(blockpos1)), 3);
+                                    WSEntity entity2 = (WSEntity) wsEntity.getType().create(level);
+                                    if (entity2 != null) {
+                                        entity2.moveTo(blockpos, 0.0f, 0.0f);
+                                        level.addFreshEntity(entity2);
+                                        entity2.spawnAnim();
+                                    }
                                 }
 
                                 if (randomsource.nextBoolean()) {

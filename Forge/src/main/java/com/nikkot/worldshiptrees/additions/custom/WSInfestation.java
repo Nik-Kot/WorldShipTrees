@@ -60,7 +60,7 @@ public interface WSInfestation {
         return false;
     }
 
-    default void spawnInfestation(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull ItemStack itemStack, boolean condition) {
+    default void spawnInfestation(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull ItemStack itemStack) {
         EntityType<? extends Mob> infestEntity = MOB_BY_INFESTED_BLOCK.get(blockState.getBlock()).get();
         if (infestEntity != null && level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && itemStack.getEnchantmentLevel(Enchantments.SILK_TOUCH) == 0) {
             Mob entity = infestEntity.create(level);
@@ -91,7 +91,7 @@ public interface WSInfestation {
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private static BlockState getNewStateWithProperties(Map<BlockState, BlockState> stateMap, BlockState blockState, Supplier<BlockState> blockStateSupplier) {
+    static BlockState getNewStateWithProperties(Map<BlockState, BlockState> stateMap, BlockState blockState, Supplier<BlockState> blockStateSupplier) {
         return stateMap.computeIfAbsent(blockState, (blockState1) -> {
             BlockState blockstate = blockStateSupplier.get();
 

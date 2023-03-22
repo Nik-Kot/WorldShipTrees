@@ -1,18 +1,21 @@
 package com.nikkot.worldshiptrees.additions;
 
-import com.nikkot.worldshiptrees.additions.custom.WSHollowPillarBlock;
-import com.nikkot.worldshiptrees.additions.custom.WSInfestedHollowPillarBlock;
-import com.nikkot.worldshiptrees.additions.custom.WSInfestedPillarBlock;
+import com.nikkot.worldshiptrees.WorldShipTrees;
+import com.nikkot.worldshiptrees.additions.custom.*;
 import com.nikkot.worldshiptrees.trees.growers.RubberTreeGrower;
 import com.nikkot.worldshiptrees.trees.growers.SacredRubberTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
@@ -22,6 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WSBlocks {
+
+    public static final TagKey<Block> TAG_INFESTED_WOOD = BlockTags.create(new ResourceLocation(WorldShipTrees.MODID, "infested_logs"));
+
+    public static final IntegerProperty STATE_INFEST_DISTANCE = IntegerProperty.create("infest_distance", 1, 7);
 
     public static final RegistryObject<RotatedPillarBlock> BLOCK_RUBBER_WOOD_LOG = WSRegisters
             .blockRegister.register("rubber_wood_log", () ->
@@ -60,9 +67,9 @@ public class WSBlocks {
                             return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 5;
                         }
                     });
-    public static final RegistryObject<LeavesBlock> BLOCK_RUBBER_WOOD_LEAVES = WSRegisters
+    public static final RegistryObject<WSLeavesBlock> BLOCK_RUBBER_WOOD_LEAVES = WSRegisters
             .blockRegister.register("rubber_wood_leaves", () ->
-                    new LeavesBlock(BlockBehaviour.Properties
+                    new WSLeavesBlock(BlockBehaviour.Properties
                             .of(Material.LEAVES)
                             .sound(SoundType.GRASS)
                             .strength(0.2F)
@@ -175,6 +182,29 @@ public class WSBlocks {
                         }
                     });
 
+    public static final RegistryObject<WSInfestedLeavesBlock> BLOCK_INFESTED_RUBBER_WOOD_LEAVES = WSRegisters
+            .blockRegister.register("infested_rubber_wood_leaves", () ->
+                    new WSInfestedLeavesBlock(BLOCK_RUBBER_WOOD_LEAVES.get(), WSEntities.ENTITY_WS_ENTITY, BlockBehaviour.Properties
+                            .of(Material.LEAVES)
+                            .sound(SoundType.GRASS)
+                            .strength(0.2F)
+                            .randomTicks()
+                            .noOcclusion()
+                            .isValidSpawn(WSBlocks::ocelotOrParrot)
+                            .isSuffocating(WSBlocks::never)
+                            .isViewBlocking(WSBlocks::never))
+                    {
+                        @Override
+                        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 30;
+                        }
+
+                        @Override
+                        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                            return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 60;
+                        }
+                    });
+
 
     public static final List<RegistryObject<? extends Block>> blocks = new ArrayList<>();
 
@@ -184,6 +214,7 @@ public class WSBlocks {
         blocks.add(BLOCK_RUBBER_WOOD_LOG);
         blocks.add(BLOCK_HOLLOW_RUBBER_WOOD_LOG);
         blocks.add(BLOCK_RUBBER_WOOD_LEAVES);
+        blocks.add(BLOCK_INFESTED_RUBBER_WOOD_LEAVES);
         blocks.add(BLOCK_LIQUID_TREE_SAP);
 
         return blocks;

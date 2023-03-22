@@ -49,7 +49,7 @@ public class WSInfestedHollowPillarBlock extends WSHollowPillarBlock implements 
     @Override
     public void spawnAfterBreak(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull ItemStack itemStack, boolean condition) {
         super.spawnAfterBreak(blockState, level, blockPos, itemStack, condition);
-        spawnInfestation(blockState, level, blockPos, itemStack, condition);
+        spawnInfestation(blockState, level, blockPos, itemStack);
     }
 }
 

@@ -55,7 +55,7 @@ public class WSHollowPillarBlock extends RotatedPillarBlock implements SimpleWat
     public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext ctx) {
         if (ctx instanceof EntityCollisionContext ectx && ectx.getEntity() instanceof Player player) {
             BlockPos bpos = player.blockPosition();
-            if (player.getEyeHeight() > 1F)
+            if (player.getEyeHeight() > 1.0f)
                 bpos = bpos.above();
 
             BlockState bstate = world.getBlockState(bpos);

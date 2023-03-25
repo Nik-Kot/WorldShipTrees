@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +29,7 @@ public class WSLeavesBlock extends LeavesBlock {
 
     public WSLeavesBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(INFEST_DISTANCE, Integer.valueOf(7)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(INFEST_DISTANCE, Integer.valueOf(7)).setValue(DISTANCE, Integer.valueOf(7)).setValue(PERSISTENT, Boolean.valueOf(false)).setValue(WATERLOGGED, Boolean.valueOf(false)));
     }
 
     @Override
@@ -56,7 +55,7 @@ public class WSLeavesBlock extends LeavesBlock {
     }
 
     private static int getInfestDistanceAt(BlockState blockState) {
-        if (blockState.is(WSBlocks.TAG_INFESTED_WOOD)) {
+        if (blockState.is(WSBlocks.TAG_INFESTED_LOGS)) {
             return 0;
         } else {
             return blockState.getBlock() instanceof WSLeavesBlock ? blockState.getValue(INFEST_DISTANCE) : 7;
@@ -65,17 +64,19 @@ public class WSLeavesBlock extends LeavesBlock {
 
     @Override
     public boolean isRandomlyTicking(@NotNull BlockState blockState) {
-        return super.isRandomlyTicking(blockState);
+        return (blockState.getValue(INFEST_DISTANCE) < 7 && !blockState.getValue(PERSISTENT)) || super.isRandomlyTicking(blockState);
     }
+
     @Override
     public void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
-        super.randomTick(blockState, level, blockPos, randomSource);
+        BlockState blockState1 = blockState;
         if (this.toBeInfested(blockState)) {
             WSInfestedLeavesBlock block = WSBlocks.BLOCK_INFESTED_RUBBER_WOOD_LEAVES.get();
-            BlockState blockState1 = getNewStateWithProperties(HOST_TO_INFESTED_STATES, blockState, block::defaultBlockState);
+            blockState1 = getNewStateWithProperties(HOST_TO_INFESTED_STATES, blockState, block::defaultBlockState);
             level.setBlock(blockPos, blockState1, 3);
         }
 
+        super.randomTick(blockState1, level, blockPos, randomSource);
     }
 
 
@@ -84,6 +85,7 @@ public class WSLeavesBlock extends LeavesBlock {
     }
 
     @NotNull
+    @Override
     public BlockState updateShape(@NotNull BlockState blockState, @NotNull Direction direction, @NotNull BlockState blockState1, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockPos blockPos1) {
         BlockState blockState2 = super.updateShape(blockState, direction, blockState1, levelAccessor, blockPos, blockPos1);
 

@@ -26,7 +26,7 @@ import java.util.List;
 
 public class WSBlocks {
 
-    public static final TagKey<Block> TAG_INFESTED_WOOD = BlockTags.create(new ResourceLocation(WorldShipTrees.MODID, "infested_logs"));
+    public static final TagKey<Block> TAG_INFESTED_LOGS = BlockTags.create(new ResourceLocation(WorldShipTrees.MODID, "infested_logs"));
 
     public static final IntegerProperty STATE_INFEST_DISTANCE = IntegerProperty.create("infest_distance", 1, 7);
 
@@ -67,9 +67,9 @@ public class WSBlocks {
                             return state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED) ? 0 : 5;
                         }
                     });
-    public static final RegistryObject<WSLeavesBlock> BLOCK_RUBBER_WOOD_LEAVES = WSRegisters
+    public static final RegistryObject<LeavesBlock> BLOCK_RUBBER_WOOD_LEAVES = WSRegisters
             .blockRegister.register("rubber_wood_leaves", () ->
-                    new WSLeavesBlock(BlockBehaviour.Properties
+                    new LeavesBlock(BlockBehaviour.Properties
                             .of(Material.LEAVES)
                             .sound(SoundType.GRASS)
                             .strength(0.2F)

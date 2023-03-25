@@ -86,7 +86,7 @@ public class WSHollowPillarBlock extends RotatedPillarBlock implements SimpleWat
 
     @Override
     public boolean propagatesSkylightDown(BlockState state, @Nonnull BlockGetter reader, @Nonnull BlockPos pos) {
-        return !state.getValue(WATERLOGGED);
+        return !state.getValue(WATERLOGGED) && state.getValue(AXIS) == Axis.Y;
     }
 
     @SuppressWarnings("deprecation")

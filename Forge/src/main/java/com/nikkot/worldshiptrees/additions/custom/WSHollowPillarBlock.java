@@ -45,7 +45,7 @@ public class WSHollowPillarBlock extends RotatedPillarBlock implements SimpleWat
     private static final VoxelShape SHAPE_Z = Shapes.or(SHAPE_BOTTOM, SHAPE_TOP, SHAPE_NORTH, SHAPE_SOUTH);
 
     public WSHollowPillarBlock(BlockBehaviour.Properties properties) {
-        super(properties.noOcclusion());
+        super(properties);
         registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
     }
 
@@ -53,17 +53,11 @@ public class WSHollowPillarBlock extends RotatedPillarBlock implements SimpleWat
     @Override
     @NotNull
     public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext ctx) {
-        if (ctx instanceof EntityCollisionContext ectx && ectx.getEntity() instanceof Player player) {
-            BlockPos bpos = player.blockPosition();
-            if (player.getEyeHeight() > 1.0f)
-                bpos = bpos.above();
-
-            BlockState bstate = world.getBlockState(bpos);
-            if (bstate.getBlock() instanceof WSHollowPillarBlock)
-                return getCollisionShape(state, world, bpos, ctx);
-        }
-
-        return super.getShape(state, world, pos, ctx);
+        return switch (state.getValue(AXIS)) {
+            case X -> SHAPE_X;
+            case Y -> SHAPE_Y;
+            case Z -> SHAPE_Z;
+        };
     }
 
     @Override
@@ -110,7 +104,7 @@ public class WSHollowPillarBlock extends RotatedPillarBlock implements SimpleWat
     @SuppressWarnings("deprecation")
     @Override
     public boolean useShapeForLightOcclusion(@NotNull BlockState blockState) {
-        return false;
+        return true;
     }
 
     @Override
@@ -118,17 +112,6 @@ public class WSHollowPillarBlock extends RotatedPillarBlock implements SimpleWat
         super.createBlockStateDefinition(def);
 
         def.add(WATERLOGGED);
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    @NotNull
-    public VoxelShape getCollisionShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext ctx) {
-        return switch (state.getValue(AXIS)) {
-            case X -> SHAPE_X;
-            case Y -> SHAPE_Y;
-            case Z -> SHAPE_Z;
-        };
     }
 
 }

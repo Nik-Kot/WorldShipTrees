@@ -29,7 +29,7 @@ public class WSLeavesBlock extends LeavesBlock {
 
     public WSLeavesBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(INFEST_DISTANCE, Integer.valueOf(7)).setValue(DISTANCE, Integer.valueOf(7)).setValue(PERSISTENT, Boolean.valueOf(false)).setValue(WATERLOGGED, Boolean.valueOf(false)));
+        this.registerDefaultState(defaultBlockState().setValue(INFEST_DISTANCE, Integer.valueOf(7)));
     }
 
     @Override

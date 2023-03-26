@@ -1,13 +1,13 @@
 plugins {
     id 'eclipse'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.1.68'
+    id 'net.minecraftforge.gradle' version '5.1.71'
     //id "com.matthewprenger.cursegradle" version "1.4.0"
 }
 
 ext {
     mcversion = '1.19.2'
-    forgeversion = '43.2.7'
+    forgeversion = '43.2.8'
     modid = 'worldshiptrees'
     author = 'nikkot'
     modname = 'Pakratt\'s Worldships'

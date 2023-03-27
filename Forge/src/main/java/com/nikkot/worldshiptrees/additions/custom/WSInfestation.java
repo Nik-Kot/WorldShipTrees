@@ -19,29 +19,27 @@ import java.util.function.Supplier;
 public interface WSInfestation {
     Map<Block, Block> INFESTED_BY_HOST_BLOCK = Maps.newIdentityHashMap();
     Map<Block, Block> HOST_BY_INFESTED_BLOCK = Maps.newIdentityHashMap();
+
     Map<Block, Supplier<? extends EntityType<? extends Mob>>> MOB_BY_INFESTED_BLOCK = Maps.newIdentityHashMap();
     Map<Block, Supplier<? extends EntityType<? extends Mob>>> MOB_BY_HOST_BLOCK = Maps.newIdentityHashMap();
+
     Map<BlockState, BlockState> HOST_TO_INFESTED_STATES = Maps.newIdentityHashMap();
     Map<BlockState, BlockState> INFESTED_TO_HOST_STATES = Maps.newIdentityHashMap();
+    Map<BlockState, BlockState> INFESTED_TO_HOLLOW_STATES = Maps.newIdentityHashMap();
 
-    class InfestationParams{
-        public Block infestedBlock;
-        public Block hostBlock;
-        public Supplier<? extends EntityType<? extends Mob>> entitySupplier;
+    Map<Block, Block> HOLLOW_BY_INFESTED_BLOCK = Maps.newIdentityHashMap();
+    Map<Block, Block> HOLLOW_BY_HOST_BLOCK = Maps.newIdentityHashMap();
 
-        public InfestationParams(Block infestedBlock, Block hostBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier) {
-            this.infestedBlock = infestedBlock;
-            this.hostBlock = hostBlock;
-            this.entitySupplier = entitySupplier;
-        }
-
+    default void registerInfestation(Block infestedBlock, Block hostBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier) {
+        INFESTED_BY_HOST_BLOCK.put(hostBlock, infestedBlock);
+        HOST_BY_INFESTED_BLOCK.put(infestedBlock, hostBlock);
+        MOB_BY_INFESTED_BLOCK.put(infestedBlock, entitySupplier);
+        MOB_BY_HOST_BLOCK.put(hostBlock, entitySupplier);
     }
 
-    default void registerInfestation(InfestationParams params) {
-        INFESTED_BY_HOST_BLOCK.put(params.hostBlock, params.infestedBlock);
-        HOST_BY_INFESTED_BLOCK.put(params.infestedBlock, params.hostBlock);
-        MOB_BY_INFESTED_BLOCK.put(params.infestedBlock, params.entitySupplier);
-        MOB_BY_HOST_BLOCK.put(params.hostBlock, params.entitySupplier);
+    default void registerHollow( Block infestedBlock, Block hostBlock, Block hollowBlock) {
+        HOLLOW_BY_HOST_BLOCK.put(hostBlock, hollowBlock);
+        HOLLOW_BY_INFESTED_BLOCK.put(infestedBlock, hollowBlock);
     }
 
     static boolean isCompatibleHostBlock(Block hostBlock, EntityType<?> entityType) {
@@ -85,6 +83,15 @@ public interface WSInfestation {
         Block hostBlock = HOST_BY_INFESTED_BLOCK.get(blockState.getBlock());
         if (hostBlock != null) {
             return getNewStateWithProperties(INFESTED_TO_HOST_STATES, blockState, hostBlock::defaultBlockState);
+        } else {
+            return blockState;
+        }
+    }
+
+    static BlockState hollowStateByInfested(BlockState blockState) {
+        Block hollowBlock = HOLLOW_BY_INFESTED_BLOCK.get(blockState.getBlock());
+        if (hollowBlock != null) {
+            return getNewStateWithProperties(INFESTED_TO_HOLLOW_STATES, blockState, hollowBlock::defaultBlockState);
         } else {
             return blockState;
         }

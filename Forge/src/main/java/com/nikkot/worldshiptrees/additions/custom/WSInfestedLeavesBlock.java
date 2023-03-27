@@ -18,7 +18,7 @@ public class WSInfestedLeavesBlock extends LeavesBlock implements WSInfestation 
 
     public WSInfestedLeavesBlock(Block hostBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier, BlockBehaviour.Properties properties) {
         super(properties.destroyTime(hostBlock.defaultDestroyTime() / 2.0F).explosionResistance(0.75F));
-        registerInfestation(new InfestationParams(this, hostBlock, entitySupplier));
+        registerInfestation(this, hostBlock, entitySupplier);
     }
 
     @SuppressWarnings("deprecation")

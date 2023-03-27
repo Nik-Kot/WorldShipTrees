@@ -2,9 +2,14 @@ package com.nikkot.worldshiptrees.additions.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -25,6 +30,13 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class WSEntity extends Silverfish {
+
+    private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(WSEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final int BABY_START_AGE = -24000;
+    private static final int FORCED_AGE_PARTICLE_TICKS = 40;
+    protected int age;
+    protected int forcedAge;
+    protected int forcedAgeTimer;
 
     @Nullable
     public WSEntityWakeUpFriendsGoal friendsGoal;
@@ -180,7 +192,94 @@ public class WSEntity extends Silverfish {
         }
     }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_BABY_ID, false);
+    }
 
+    public int getAge() {
+        if (this.level.isClientSide) {
+            return this.entityData.get(DATA_BABY_ID) ? -1 : 1;
+        } else {
+            return this.age;
+        }
+    }
 
+    public void ageUp(int p_146741_, boolean p_146742_) {
+        int i = this.getAge();
+        i += p_146741_ * 20;
+        if (i > 0) {
+            i = 0;
+        }
+
+        int j = i - i;
+        this.setAge(i);
+        if (p_146742_) {
+            this.forcedAge += j;
+            if (this.forcedAgeTimer == 0) {
+                this.forcedAgeTimer = 40;
+            }
+        }
+
+        if (this.getAge() == 0) {
+            this.setAge(this.forcedAge);
+        }
+
+    }
+
+    public void ageUp(int p_146759_) {
+        this.ageUp(p_146759_, false);
+    }
+
+    public void setAge(int p_146763_) {
+        int i = this.getAge();
+        this.age = p_146763_;
+        if (i < 0 && p_146763_ >= 0 || i >= 0 && p_146763_ < 0) {
+            this.entityData.set(DATA_BABY_ID, p_146763_ < 0);
+            this.ageBoundaryReached();
+        }
+
+    }
+
+    protected void ageBoundaryReached() {
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Age", this.getAge());
+        compoundTag.putInt("ForcedAge", this.forcedAge);
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setAge(compoundTag.getInt("Age"));
+        this.forcedAge = compoundTag.getInt("ForcedAge");
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_BABY_ID.equals(accessor)) {
+            this.refreshDimensions();
+        }
+
+        super.onSyncedDataUpdated(accessor);
+    }
+
+    @Override
+    public boolean isBaby() {
+        return this.getAge() < 0;
+    }
+
+    @Override
+    public void setBaby(boolean p_146756_) {
+        this.setAge(p_146756_ ? BABY_START_AGE : 0);
+    }
+
+    public static int getSpeedUpSecondsWhenFeeding(int p_216968_) {
+        return (int)((float)(p_216968_ / 20) * 0.1F);
+    }
 
 }

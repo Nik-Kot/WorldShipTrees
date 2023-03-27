@@ -27,6 +27,7 @@ import java.util.List;
 public class WSBlocks {
 
     public static final TagKey<Block> TAG_INFESTED_LOGS = BlockTags.create(new ResourceLocation(WorldShipTrees.MODID, "infested_logs"));
+    public static final TagKey<Block> TAG_HOLLOW_LOGS = BlockTags.create(new ResourceLocation(WorldShipTrees.MODID, "hollow_logs"));
     public static final TagKey<Block> TAG_INFESTED_LEAVES = BlockTags.create(new ResourceLocation(WorldShipTrees.MODID, "infested_leaves"));
 
     public static final IntegerProperty STATE_INFEST_DISTANCE = IntegerProperty.create("infest_distance", 1, 7);

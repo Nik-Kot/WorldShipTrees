@@ -9,22 +9,36 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class WSInfestedLeavesBlock extends LeavesBlock implements WSInfestation {
 
+    public static final int MAX_AGE = BlockStateProperties.MAX_AGE_7;
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
 
-    public WSInfestedLeavesBlock(Block hostBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier, BlockBehaviour.Properties properties) {
-        super(properties.destroyTime(hostBlock.defaultDestroyTime() / 2.0F).explosionResistance(0.75F));
+    public WSInfestedLeavesBlock(Supplier<? extends Block> hostBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier, BlockBehaviour.Properties properties) {
+        super(properties.destroyTime(hostBlock.get().defaultDestroyTime() / 2.0F).explosionResistance(0.75F));
         registerInfestation(this, hostBlock, entitySupplier);
+        this.registerDefaultState(defaultBlockState().setValue(AGE, Integer.valueOf(0)));
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void spawnAfterBreak(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull ItemStack itemStack, boolean condition) {
         super.spawnAfterBreak(blockState, level, blockPos, itemStack, condition);
-        spawnInfestation(blockState, level, blockPos, itemStack);
+        if (blockState.hasProperty(AGE) && blockState.getValue(AGE) > 4) {
+            spawnInfestation(blockState, level, blockPos, itemStack, true);
+        }
+    }
+
+    @Override
+    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> stateBuilder) {
+        super.createBlockStateDefinition(stateBuilder);
+        stateBuilder.add(AGE);
     }
 }

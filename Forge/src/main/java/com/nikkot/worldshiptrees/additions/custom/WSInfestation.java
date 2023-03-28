@@ -13,39 +13,42 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.NotNull;
 
+import java.security.KeyPair;
 import java.util.Map;
 import java.util.function.Supplier;
 
 public interface WSInfestation {
+
+    Map<Supplier<? extends Block>, Block> INFESTED_BY_HOST_BLOCK_SUPPLIER = Maps.newIdentityHashMap();
     Map<Block, Block> INFESTED_BY_HOST_BLOCK = Maps.newIdentityHashMap();
-    Map<Block, Block> HOST_BY_INFESTED_BLOCK = Maps.newIdentityHashMap();
+    Map<Block, Supplier<? extends Block>> HOST_BY_INFESTED_BLOCK = Maps.newIdentityHashMap();
 
     Map<Block, Supplier<? extends EntityType<? extends Mob>>> MOB_BY_INFESTED_BLOCK = Maps.newIdentityHashMap();
-    Map<Block, Supplier<? extends EntityType<? extends Mob>>> MOB_BY_HOST_BLOCK = Maps.newIdentityHashMap();
 
     Map<BlockState, BlockState> HOST_TO_INFESTED_STATES = Maps.newIdentityHashMap();
     Map<BlockState, BlockState> INFESTED_TO_HOST_STATES = Maps.newIdentityHashMap();
     Map<BlockState, BlockState> INFESTED_TO_HOLLOW_STATES = Maps.newIdentityHashMap();
 
-    Map<Block, Block> HOLLOW_BY_INFESTED_BLOCK = Maps.newIdentityHashMap();
-    Map<Block, Block> HOLLOW_BY_HOST_BLOCK = Maps.newIdentityHashMap();
+    Map<Block, Supplier<? extends Block>> HOLLOW_BY_INFESTED_BLOCK = Maps.newIdentityHashMap();
 
-    default void registerInfestation(Block infestedBlock, Block hostBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier) {
-        INFESTED_BY_HOST_BLOCK.put(hostBlock, infestedBlock);
+    default void registerInfestation(Block infestedBlock, Supplier<? extends Block> hostBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier) {
+        INFESTED_BY_HOST_BLOCK_SUPPLIER.put(hostBlock, infestedBlock);
         HOST_BY_INFESTED_BLOCK.put(infestedBlock, hostBlock);
         MOB_BY_INFESTED_BLOCK.put(infestedBlock, entitySupplier);
-        MOB_BY_HOST_BLOCK.put(hostBlock, entitySupplier);
+        computeMaps();
     }
 
-    default void registerHollow( Block infestedBlock, Block hostBlock, Block hollowBlock) {
-        HOLLOW_BY_HOST_BLOCK.put(hostBlock, hollowBlock);
+    default void registerHollow(Block infestedBlock, Supplier<? extends Block> hostBlock, Supplier<? extends Block> hollowBlock) {
         HOLLOW_BY_INFESTED_BLOCK.put(infestedBlock, hollowBlock);
     }
 
     static boolean isCompatibleHostBlock(Block hostBlock, EntityType<?> entityType) {
-        Supplier<? extends EntityType<? extends Mob>> entitySupplier = MOB_BY_HOST_BLOCK.get(hostBlock);
-        if (entitySupplier != null) {
-            return entityType == entitySupplier.get();
+        Block infestedBlock = INFESTED_BY_HOST_BLOCK.get(hostBlock);
+        if (infestedBlock != null) {
+            Supplier<? extends EntityType<? extends Mob>> entitySupplier = MOB_BY_INFESTED_BLOCK.get(infestedBlock);
+            if (entitySupplier != null) {
+                return entityType == entitySupplier.get();
+            }
         }
         return false;
     }
@@ -58,14 +61,20 @@ public interface WSInfestation {
         return false;
     }
 
-    default void spawnInfestation(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull ItemStack itemStack) {
-        EntityType<? extends Mob> infestEntity = MOB_BY_INFESTED_BLOCK.get(blockState.getBlock()).get();
-        if (infestEntity != null && level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && itemStack.getEnchantmentLevel(Enchantments.SILK_TOUCH) == 0) {
-            Mob entity = infestEntity.create(level);
-            if (entity != null) {
-                entity.moveTo((double) blockPos.getX() + 0.5d, (double) blockPos.getY(), (double) blockPos.getZ() + 0.5d, 0.0f, 0.0f);
-                level.addFreshEntity(entity);
-                entity.spawnAnim();
+    default void spawnInfestation(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull ItemStack itemStack, boolean asBaby) {
+        Supplier<? extends EntityType<? extends Mob>> entitySupplier = MOB_BY_INFESTED_BLOCK.get(blockState.getBlock());
+        if (entitySupplier != null) {
+            EntityType<? extends Mob> infestEntity = entitySupplier.get();
+            if (infestEntity != null && level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && itemStack.getEnchantmentLevel(Enchantments.SILK_TOUCH) == 0) {
+                Mob entity = infestEntity.create(level);
+                if (entity != null) {
+                    if (asBaby) {
+                        entity.setBaby(true);
+                    }
+                    entity.moveTo((double) blockPos.getX() + 0.5d, (double) blockPos.getY(), (double) blockPos.getZ() + 0.5d, 0.0f, 0.0f);
+                    level.addFreshEntity(entity);
+                    entity.spawnAnim();
+                }
             }
         }
     }
@@ -80,18 +89,18 @@ public interface WSInfestation {
     }
 
     static BlockState hostStateByInfested(BlockState blockState) {
-        Block hostBlock = HOST_BY_INFESTED_BLOCK.get(blockState.getBlock());
+        Supplier<? extends Block> hostBlock = HOST_BY_INFESTED_BLOCK.get(blockState.getBlock());
         if (hostBlock != null) {
-            return getNewStateWithProperties(INFESTED_TO_HOST_STATES, blockState, hostBlock::defaultBlockState);
+            return getNewStateWithProperties(INFESTED_TO_HOST_STATES, blockState, hostBlock.get()::defaultBlockState);
         } else {
             return blockState;
         }
     }
 
     static BlockState hollowStateByInfested(BlockState blockState) {
-        Block hollowBlock = HOLLOW_BY_INFESTED_BLOCK.get(blockState.getBlock());
+        Supplier<? extends Block> hollowBlock = HOLLOW_BY_INFESTED_BLOCK.get(blockState.getBlock());
         if (hollowBlock != null) {
-            return getNewStateWithProperties(INFESTED_TO_HOLLOW_STATES, blockState, hollowBlock::defaultBlockState);
+            return getNewStateWithProperties(INFESTED_TO_HOLLOW_STATES, blockState, hollowBlock.get()::defaultBlockState);
         } else {
             return blockState;
         }
@@ -108,5 +117,14 @@ public interface WSInfestation {
 
             return blockstate;
         });
+    }
+
+    static void computeMaps() {
+        for (Map.Entry<Supplier<? extends Block>, Block> mapEntry : INFESTED_BY_HOST_BLOCK_SUPPLIER.entrySet()) {
+            Block hostBlock = mapEntry.getKey().get();
+            if (hostBlock != null) {
+                INFESTED_BY_HOST_BLOCK.put(hostBlock, mapEntry.getValue());
+            }
+        }
     }
 }

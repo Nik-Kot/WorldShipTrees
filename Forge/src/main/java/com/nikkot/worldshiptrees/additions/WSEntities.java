@@ -16,6 +16,8 @@ public class WSEntities {
             .entityTypeRegister.register("ws_entity", () ->
                     EntityType.Builder
                             .of(WSEntity::new, MobCategory.MONSTER)
+                            .sized(0.4f, 0.3f)
+                            .clientTrackingRange(8)
                             .build(WorldShipTrees.MODID + ":ws_entity"));
 
 

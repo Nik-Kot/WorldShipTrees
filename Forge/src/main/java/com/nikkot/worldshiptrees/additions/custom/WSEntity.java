@@ -90,7 +90,9 @@ public class WSEntity extends Silverfish {
 
         @Override
         public boolean canUse() {
-            if (this.mob.getTarget() != null) {
+            if (this.mob.isBaby()) {
+                return false;
+            } else if (this.mob.getTarget() != null) {
                 return false;
             } else if (!this.mob.getNavigation().isDone()) {
                 return false;

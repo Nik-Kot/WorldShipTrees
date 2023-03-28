@@ -147,9 +147,9 @@ public class WSBlocks {
 
 
 
-    public static final RegistryObject<WSInfestedPillarBlock> BLOCK_INFESTED_RUBBER_WOOD_LOG = WSRegisters
+    public static final RegistryObject<WSInfestedLog> BLOCK_INFESTED_RUBBER_WOOD_LOG = WSRegisters
             .blockRegister.register("infested_rubber_wood_log", () ->
-                    new WSInfestedPillarBlock(BLOCK_RUBBER_WOOD_LOG.get(), WSEntities.ENTITY_WS_ENTITY, BlockBehaviour.Properties
+                    new WSInfestedLog(BLOCK_RUBBER_WOOD_LOG, BLOCK_HOLLOW_RUBBER_WOOD_LOG, WSEntities.ENTITY_WS_ENTITY, BlockBehaviour.Properties
                             .of(Material.WOOD, (blockState) ->
                                     blockState.getValue(WSInfestedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL)
                             .sound(SoundType.WOOD))
@@ -168,7 +168,7 @@ public class WSBlocks {
 
     public static final RegistryObject<WSInfestedHollowPillarBlock> BLOCK_INFESTED_HOLLOW_RUBBER_WOOD_LOG = WSRegisters
             .blockRegister.register("infested_hollow_rubber_wood_log", () ->
-                    new WSInfestedHollowPillarBlock(BLOCK_HOLLOW_RUBBER_WOOD_LOG.get(), WSEntities.ENTITY_WS_ENTITY, BlockBehaviour.Properties
+                    new WSInfestedHollowPillarBlock(BLOCK_HOLLOW_RUBBER_WOOD_LOG, WSEntities.ENTITY_WS_ENTITY, BlockBehaviour.Properties
                             .of(Material.WOOD, (blockState) ->
                                     blockState.getValue(WSInfestedHollowPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL)
                             .sound(SoundType.WOOD))
@@ -186,7 +186,7 @@ public class WSBlocks {
 
     public static final RegistryObject<WSInfestedLeavesBlock> BLOCK_INFESTED_RUBBER_WOOD_LEAVES = WSRegisters
             .blockRegister.register("infested_rubber_wood_leaves", () ->
-                    new WSInfestedLeavesBlock(BLOCK_RUBBER_WOOD_LEAVES.get(), WSEntities.ENTITY_WS_ENTITY, BlockBehaviour.Properties
+                    new WSInfestedLeavesBlock(BLOCK_RUBBER_WOOD_LEAVES, WSEntities.ENTITY_WS_ENTITY, BlockBehaviour.Properties
                             .of(Material.LEAVES)
                             .sound(SoundType.GRASS)
                             .strength(0.2F)

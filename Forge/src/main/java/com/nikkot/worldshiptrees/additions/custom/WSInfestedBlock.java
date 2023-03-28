@@ -14,8 +14,8 @@ import java.util.function.Supplier;
 
 public class WSInfestedBlock extends Block implements WSInfestation {
 
-    public WSInfestedBlock(Block hostBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier, BlockBehaviour.Properties properties) {
-        super(properties.destroyTime(hostBlock.defaultDestroyTime() / 2.0F).explosionResistance(0.75F));
+    public WSInfestedBlock(Supplier<? extends Block> hostBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier, BlockBehaviour.Properties properties) {
+        super(properties.destroyTime(hostBlock.get().defaultDestroyTime() / 2.0F).explosionResistance(0.75F));
         registerInfestation(this, hostBlock, entitySupplier);
     }
 
@@ -23,6 +23,6 @@ public class WSInfestedBlock extends Block implements WSInfestation {
     @Override
     public void spawnAfterBreak(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull ItemStack itemStack, boolean condition) {
         super.spawnAfterBreak(blockState, level, blockPos, itemStack, condition);
-        spawnInfestation(blockState, level, blockPos, itemStack);
+        spawnInfestation(blockState, level, blockPos, itemStack, false);
     }
 }

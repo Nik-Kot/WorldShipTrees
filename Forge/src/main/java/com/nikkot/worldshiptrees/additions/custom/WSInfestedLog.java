@@ -1,9 +1,7 @@
 package com.nikkot.worldshiptrees.additions.custom;
 
-import com.google.common.collect.Maps;
 import com.nikkot.worldshiptrees.additions.WSBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -16,16 +14,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
 import java.util.function.Supplier;
 
-public class WSInfestedWoodBlock extends WSInfestedPillarBlock {
+public class WSInfestedLog extends WSInfestedPillarBlock {
 
 
     public static final int MAX_AGE = BlockStateProperties.MAX_AGE_7;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
 
-    public WSInfestedWoodBlock(Block hostBlock, Block hollowBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier, Properties properties) {
+    public WSInfestedLog(Supplier<? extends Block> hostBlock, Supplier<? extends Block> hollowBlock, Supplier<? extends EntityType<? extends Mob>> entitySupplier, Properties properties) {
         super(hostBlock, entitySupplier, properties);
         registerHollow(this, hostBlock, hollowBlock);
         this.registerDefaultState(defaultBlockState().setValue(AGE, Integer.valueOf(0)));
@@ -42,7 +39,7 @@ public class WSInfestedWoodBlock extends WSInfestedPillarBlock {
 
         if (age < 6) {
             if (age < 4 || randomSource.nextBoolean()) {
-                blockState.setValue(AGE, age + 1);
+                level.setBlock(blockPos, blockState.setValue(AGE, age + 1), 3);
             }
         } else if (age == 6) {
             moveToNextLog(level, blockPos, blockState, randomSource.nextInt(3));
